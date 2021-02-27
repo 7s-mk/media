@@ -1,6 +1,7 @@
 package cn.edu.wtu.wtr.media.object;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -49,7 +50,7 @@ public class Contents implements Serializable {
      *
      * @mbg.generated Tue Feb 02 19:52:04 CST 2021
      */
-    private Date createTime;
+    private LocalDateTime createTime = LocalDateTime.now();
 
     /**
      * 超链接

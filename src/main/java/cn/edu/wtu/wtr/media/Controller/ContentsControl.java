@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,12 @@ public class ContentsControl {
     }
 
     @PostMapping
-    public String add(Contents contents,Model model){
+    public String add(Contents contents,Model model,String setCreateTime){
+        if (setCreateTime != null && !setCreateTime.isEmpty()) {
+            contents.setCreateTime(LocalDateTime.parse(setCreateTime));
+        } else {
+            contents.setCreateTime(LocalDateTime.now());
+        }
         if(service.add(contents)) {
             model.addAttribute("msg", "添加失败");
             model.addAttribute("content", new Contents());

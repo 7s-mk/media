@@ -7,6 +7,7 @@ import cn.edu.wtu.wtr.media.service.IContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ContentsService implements IContentService {
     @Override
     public boolean add(Contents contents) {
         if (contents.getCreateTime() == null) {
-            contents.setCreateTime(new Date());
+            contents.setCreateTime(LocalDateTime.now());
         }
         return dao.insertSelective(contents)==1;
     }
