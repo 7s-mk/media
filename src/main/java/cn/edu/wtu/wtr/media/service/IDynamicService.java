@@ -39,11 +39,9 @@ public interface IDynamicService {
     boolean add(Dynamic dynamic);
 
     /**
-     * 删除一条动态
-     *
-     *@return 是否删除成功
-     * */
+     * 删除一条数据
+     * @param id id
+     * @return 是否删除成功
+     */
     boolean remove(int id);
 }
-
-

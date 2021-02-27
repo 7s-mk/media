@@ -68,4 +68,6 @@ public class DynamicService implements IDynamicService {
     public boolean remove(int id) {
         return dao.deleteByPrimaryKey(id) == 1;
     }
+
+
 }
