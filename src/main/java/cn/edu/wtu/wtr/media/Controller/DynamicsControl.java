@@ -72,4 +72,26 @@ public class DynamicsControl {
                 "</script>");
         return "add";
     }
+
+    @GetMapping("/remove")
+    public String remove(int id, Model model){
+        boolean remove = service.remove(id);
+        model.addAttribute("msg", "添加失败");
+        model.addAttribute("content", new Dynamic());
+        String msg;
+        if(remove){
+            msg = " <script>\n" +
+                    "            alert(\"删除成功\");\n" +
+                    "            location.href=\"/content\";\n" +
+                    "        </script>";
+        }
+        else{
+            msg = " <script>\n" +
+                    "            alert(\"删除失败\");\n" +
+                    "            location.href=\"/content\";\n" +
+                    "        </script>";
+        }
+        model.addAttribute("code",msg);
+        return "add";
+    }
 }

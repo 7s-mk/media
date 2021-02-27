@@ -63,4 +63,9 @@ public class DynamicService implements IDynamicService {
         }
         return dao.insertSelective(dynamic) == 1;
     }
+
+    @Override
+    public boolean remove(int id) {
+        return dao.deleteByPrimaryKey(id) == 1;
+    }
 }

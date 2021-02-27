@@ -78,4 +78,6 @@ public interface DynamicDao {
      * @mbg.generated 2021-02-27 21:30:07
      */
     int updateByPrimaryKey(Dynamic record);
+
+    int deleteByExample(int id);
 }

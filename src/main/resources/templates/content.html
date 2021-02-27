@@ -70,7 +70,8 @@
         <th>平台</th>
         <th>内容</th>
         <th>时间</th>
-        <th>查看详情</th>
+        <th>详情</th>
+        <th>删除</th>
         <th>浏览量</th>
         <th>转发</th>
         <th>评论</th>
@@ -83,7 +84,9 @@
             <td th:text="${row.getPlatform()}"></td>
             <td th:text="${row.getValue()}"></td>
             <td th:text="${row.getCreateTime()}"></td>
-            <td><a href="#" th:href="${row.getUrl()}">查看详情</a></td>
+            <td><a href="#" th:href="${row.getUrl()}">详情</a>&nap;
+                <a href="#" th:href="'/content/remove?id='+${row.getId()}">删除</a>
+            </td>
             <td th:text="${row.getView()}"></td>
             <td th:text="${row.getTransmit()}"></td>
             <td th:text="${row.getComment()}"></td>
