@@ -15,67 +15,67 @@ import org.springframework.stereotype.Repository;
 public interface DynamicDao {
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     long countByExample(DynamicExample example);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int deleteByExample(DynamicExample example);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int deleteByPrimaryKey(Integer id);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int insert(Dynamic record);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int insertSelective(Dynamic record);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     List<Dynamic> selectByExample(DynamicExample example);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     Dynamic selectByPrimaryKey(Integer id);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int updateByExampleSelective(@Param("record") Dynamic record, @Param("example") DynamicExample example);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int updateByExample(@Param("record") Dynamic record, @Param("example") DynamicExample example);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int updateByPrimaryKeySelective(Dynamic record);
 
     /**
      *
-     * @mbg.generated 2021-02-27 20:36:43
+     * @mbg.generated 2021-02-27 21:30:07
      */
     int updateByPrimaryKey(Dynamic record);
 }

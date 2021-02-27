@@ -20,3 +20,7 @@ spring:
 #Mybaits
 mybatis:
   mapper-locations: classpath:dao/*Dao.xml
+
+logging:
+  level:
+    cn.edu.wtu.wtr.media.dao.**: debug

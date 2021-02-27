@@ -12,11 +12,11 @@
     <result column="value" jdbcType="VARCHAR" property="value" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="view" jdbcType="VARCHAR" property="view" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="transmit" jdbcType="VARCHAR" property="transmit" />
-    <result column="like" jdbcType="VARCHAR" property="like" />
-    <result column="coin" jdbcType="VARCHAR" property="coin" />
+    <result column="view" jdbcType="INTEGER" property="view" />
+    <result column="comment" jdbcType="INTEGER" property="comment" />
+    <result column="transmit" jdbcType="INTEGER" property="transmit" />
+    <result column="like" jdbcType="INTEGER" property="like" />
+    <result column="coin" jdbcType="INTEGER" property="coin" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -134,9 +134,9 @@
       coin)
     values (#{did,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{platform,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, #{view,jdbcType=VARCHAR}, 
-      #{comment,jdbcType=VARCHAR}, #{transmit,jdbcType=VARCHAR}, #{like,jdbcType=VARCHAR}, 
-      #{coin,jdbcType=VARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, #{view,jdbcType=INTEGER}, 
+      #{comment,jdbcType=INTEGER}, #{transmit,jdbcType=INTEGER}, #{like,jdbcType=INTEGER}, 
+      #{coin,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.edu.wtu.wtr.media.object.Dynamic" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -208,19 +208,19 @@
         #{url,jdbcType=VARCHAR},
       </if>
       <if test="view != null">
-        #{view,jdbcType=VARCHAR},
+        #{view,jdbcType=INTEGER},
       </if>
       <if test="comment != null">
-        #{comment,jdbcType=VARCHAR},
+        #{comment,jdbcType=INTEGER},
       </if>
       <if test="transmit != null">
-        #{transmit,jdbcType=VARCHAR},
+        #{transmit,jdbcType=INTEGER},
       </if>
       <if test="like != null">
-        #{like,jdbcType=VARCHAR},
+        #{like,jdbcType=INTEGER},
       </if>
       <if test="coin != null">
-        #{coin,jdbcType=VARCHAR},
+        #{coin,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -263,19 +263,19 @@
         url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.view != null">
-        `view` = #{record.view,jdbcType=VARCHAR},
+        `view` = #{record.view,jdbcType=INTEGER},
       </if>
       <if test="record.comment != null">
-        `comment` = #{record.comment,jdbcType=VARCHAR},
+        `comment` = #{record.comment,jdbcType=INTEGER},
       </if>
       <if test="record.transmit != null">
-        transmit = #{record.transmit,jdbcType=VARCHAR},
+        transmit = #{record.transmit,jdbcType=INTEGER},
       </if>
       <if test="record.like != null">
-        `like` = #{record.like,jdbcType=VARCHAR},
+        `like` = #{record.like,jdbcType=INTEGER},
       </if>
       <if test="record.coin != null">
-        coin = #{record.coin,jdbcType=VARCHAR},
+        coin = #{record.coin,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -294,11 +294,11 @@
       `value` = #{record.value,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       url = #{record.url,jdbcType=VARCHAR},
-      `view` = #{record.view,jdbcType=VARCHAR},
-      `comment` = #{record.comment,jdbcType=VARCHAR},
-      transmit = #{record.transmit,jdbcType=VARCHAR},
-      `like` = #{record.like,jdbcType=VARCHAR},
-      coin = #{record.coin,jdbcType=VARCHAR}
+      `view` = #{record.view,jdbcType=INTEGER},
+      `comment` = #{record.comment,jdbcType=INTEGER},
+      transmit = #{record.transmit,jdbcType=INTEGER},
+      `like` = #{record.like,jdbcType=INTEGER},
+      coin = #{record.coin,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -332,19 +332,19 @@
         url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="view != null">
-        `view` = #{view,jdbcType=VARCHAR},
+        `view` = #{view,jdbcType=INTEGER},
       </if>
       <if test="comment != null">
-        `comment` = #{comment,jdbcType=VARCHAR},
+        `comment` = #{comment,jdbcType=INTEGER},
       </if>
       <if test="transmit != null">
-        transmit = #{transmit,jdbcType=VARCHAR},
+        transmit = #{transmit,jdbcType=INTEGER},
       </if>
       <if test="like != null">
-        `like` = #{like,jdbcType=VARCHAR},
+        `like` = #{like,jdbcType=INTEGER},
       </if>
       <if test="coin != null">
-        coin = #{coin,jdbcType=VARCHAR},
+        coin = #{coin,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -360,11 +360,11 @@
       `value` = #{value,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       url = #{url,jdbcType=VARCHAR},
-      `view` = #{view,jdbcType=VARCHAR},
-      `comment` = #{comment,jdbcType=VARCHAR},
-      transmit = #{transmit,jdbcType=VARCHAR},
-      `like` = #{like,jdbcType=VARCHAR},
-      coin = #{coin,jdbcType=VARCHAR}
+      `view` = #{view,jdbcType=INTEGER},
+      `comment` = #{comment,jdbcType=INTEGER},
+      transmit = #{transmit,jdbcType=INTEGER},
+      `like` = #{like,jdbcType=INTEGER},
+      coin = #{coin,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
