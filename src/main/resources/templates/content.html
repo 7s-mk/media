@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>数据</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script type="text/javascript">
+    function search(){
+        let key = $("#nameKey").val();
+        location.href="/content?key="+key;
+    }
+    function renew(){
+        location.href="/content";
+    }
+    </script>
+</head>
+<body>
+<h1 class="page-header">数据统计</h1>
+<span>搜索：</span>
+<label for="nameKey" class="form-inline">
+    <input type="text" id="nameKey" class="form-control" th:value="${key}">&nbsp;&nbsp;
+</label>
+<button id="search" class="btn btn-primary" onclick="search()">
+    <span class="glyphicon glyphicon-search" ></span> 搜索
+</button>&nbsp;
+<button id="reset" class="btn btn-danger" onclick="renew()">
+    <span class="glyphicon glyphicon-repeat" ></span> 恢复
+</button>&nbsp;
+共找到<span id="sumRows" style="color: crimson" th:text="${content.size()}"></span>条数据&nbsp;
+<div class="table-responsive">
+    <table id="listCustomer" class="table table-striped">
+        <thead>
+        <th>类型</th>
+        <th>平台</th>
+        <th>内容</th>
+        <th>时间</th>
+        <th>查看详情</th>
+        <th>浏览量</th>
+        <th>转发</th>
+        <th>评论</th>
+        <th>点赞</th>
+        </thead>
+        <tbody id="searchVar">
+        <!-- 预留数据 -->
+        <tr th:each="row:${content}">
+            <td th:text="${row.getType()}"></td>
+            <td th:text="${row.getPlatform()}"></td>
+            <td th:text="${row.getValue()}"></td>
+            <td th:text="${row.getCreateTime()}"></td>
+            <td><a href="#" th:href="${row.getUlr()}">查看详情</a></td>
+            <td th:text="${row.getViewPage()}"></td>
+            <td th:text="${row.getTransmit()}"></td>
+            <td th:text="${row.getComment()}"></td>
+            <td th:text="${row.getLike()}"></td>
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <!-- 尾部数据 -->
+        <tr></tr>
+        </tfoot>
+    </table>
+</div>
+<div class="icon-align-center">
+    <a href="#" id="start">首页</a>
+    <button id="upon">上一页</button>&nbsp;
+    第<span id="pageNum" style="color: #142fdc"></span>页&nbsp;
+    <button id="next">下一页</button>&nbsp;
+    共<span id="pages"></span>页&nbsp;
+    <a href="#" id="last">末页</a>
+</div>
+</body>
+</html>

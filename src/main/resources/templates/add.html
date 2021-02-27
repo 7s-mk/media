@@ -1,0 +1,34 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>添加内容</title>
+    <div th:utext="${code}">
+<script type="text/javascript">
+    alert("添加失败！");
+</script>
+    </div>
+</head>
+<body>
+<h1>添加内容</h1>
+<form action="/content" method="post">
+    类型： <input type="text" name="type" th:value="${content.getType()}"><br/>
+    风格： <input type="text" name="style" th:value="${content.getStyle()}"><br/>
+    平台：
+    <select name="platform">
+        <option value="哔哩哔哩" th:selected="${content.getPlatform()} eq '哔哩哔哩'">哔哩哔哩</option>
+        <option value="QQ空间" th:selected="${content.getPlatform()} eq 'QQ空间'">QQ空间</option>
+        <option value="抖音" th:selected="${content.getPlatform()} eq '抖音'">抖音</option>
+        <option value="微信" th:selected="${content.getPlatform()} eq '微信'">微信</option>
+        <option value="微博" th:selected="${content.getPlatform()} eq '微博'">微博</option>
+    </select><br/>
+    内容： <input type="text" name="value" th:value="${content.getValue()}"><br/>
+    地址： <input type="url" name="ulr" th:value="${content.getUlr()}"><br/>
+    阅读: <input type="number" name="viewPage" th:value="${content.getViewPage()}"><br/>
+    转发: <input type="number" name="transmit" th:value="${content.getTransmit()}"><br/>
+    评论: <input type="number" name="comment" th:value="${content.getComment()}"><br/>
+    点赞: <input type="number" name="like" th:value="${content.getLike()}"><br/>
+    <p style="color: #ff0000" th:text="${msg}"></p>
+    <input type="submit" value="添加">
+</form>
+</body>
+</html>
