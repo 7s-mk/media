@@ -45,7 +45,8 @@ public class UserService implements IUserService {
      */
     @Override
     public boolean modify(User user) {
-        if (!check(user) || user.getId() == null)
+        // 不能为空 职务不能高于自己
+        if (!check(user) || user.getId() == null || !HttpContext.checkOffice(user.office()))
             return false;
         return dao.updateByPrimaryKey(user) == 1;
     }
@@ -80,6 +81,16 @@ public class UserService implements IUserService {
         return users.stream().filter(user -> HttpContext.checkOffice(user.office())).collect(Collectors.toList());
     }
 
+    /**
+     * 根据id获取
+     *
+     * @param id id
+     * @return user
+     */
+    @Override
+    public User getUser(int id) {
+        return dao.selectByPrimaryKey(id);
+    }
 
     /**
      * 判断用户是否正常

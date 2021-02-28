@@ -31,6 +31,14 @@ public interface IDynamicService {
     List<Dynamic> getPage(String key, Integer page, Integer size);
 
     /**
+     * 根据id获取
+     *
+     * @param id id
+     * @return dynamic
+     */
+    Dynamic getDynamic(int id);
+
+    /**
      * 添加一条动态
      *
      * @param dynamic 动态
@@ -39,7 +47,16 @@ public interface IDynamicService {
     boolean add(Dynamic dynamic);
 
     /**
+     * 修改数据
+     *
+     * @param dynamic 动态
+     * @return 修改成功
+     */
+    boolean modify(Dynamic dynamic);
+
+    /**
      * 删除一条数据
+     *
      * @param id id
      * @return 是否删除成功
      */

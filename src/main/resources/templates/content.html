@@ -48,6 +48,10 @@
             location.href = "/content?key=" + key + "&page=" + page;
         }
 
+        function add() {
+            location.href = "/content/add";
+        }
+
     </script>
 </head>
 <body>
@@ -61,35 +65,45 @@
 </button>&nbsp;
 <button id="reset" class="btn btn-danger" onclick="renew()">
     <span class="glyphicon glyphicon-repeat"></span> 恢复
+</button>
+
+<button class="btn btn-success" onclick="add()">
+    <span class="glyphicon glyphicon-plus"></span> 添加数据
 </button>&nbsp;
-共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp; 本页共<span style="color: crimson" th:text="${content.size()}"></span>条
+
+共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp; 本页共<span style="color: crimson"
+                                                                                          th:text="${content.size()}"></span>条
 <div class="table-responsive">
-    <table id="listCustomer" class="table table-striped">
+    <table id="listCustomer" class="table">
         <thead>
-        <th>类型</th>
-        <th>平台</th>
-        <th>内容</th>
-        <th>时间</th>
-        <th>操作</th>
-        <th>浏览</th>
-        <th>转发</th>
-        <th>评论</th>
-        <th>点赞</th>
+        <tr>
+            <th>类型</th>
+            <th>平台</th>
+            <th>内容</th>
+            <th>时间</th>
+            <th>媒体数据</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody id="searchVar">
         <!-- 预留数据 -->
         <tr th:each="row:${content}">
             <td th:text="${row.getType()}"></td>
             <td th:text="${row.getPlatform()}"></td>
-            <td th:text="${row.getValue()}"></td>
+            <td th:text="${row.getValue()}" style="width:50%"></td>
             <td th:text="${row.getCreateTime()}"></td>
-            <td><a href="#" th:href="${row.getUrl()}">详情</a> <br>&<br>
-                <a href="#" th:href="'/content/remove?id='+${row.getId()}">删除</a>
+            <td>
+                <p>阅读:<span style="color: #28a4c9" th:text="${row.getView()}"></span></p>
+                <p>评论:<span style="color: #c928b4" th:text="${row.getComment()}"></span></p>
+                <p>转发:<span style="color: #b1c928" th:text="${row.getTransmit()}"></span></p>
+                <p>投币:<span style="color: #dd5ff5" th:text="${row.getCoin()}"></span></p>
             </td>
-            <td th:text="${row.getView()}"></td>
-            <td th:text="${row.getTransmit()}"></td>
-            <td th:text="${row.getComment()}"></td>
-            <td th:text="${row.getLike()}"></td>
+            <td>
+                <p><a href="#" th:href="${row.getUrl()}">详情</a></p>
+                <p><a href="#" th:href="'/content/modify?id='+${row.getId()}">编辑</a></p>
+                <p><a href="#" th:href="'/content/remove?id='+${row.getId()}">删除</a></p>
+            </td>
+
         </tr>
 
         </tbody>

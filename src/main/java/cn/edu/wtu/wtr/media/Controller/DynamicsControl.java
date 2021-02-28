@@ -48,13 +48,15 @@ public class DynamicsControl {
 
     @GetMapping("/add")
     public String addView(Model model) {// 如果不是干事就不能添加
-        model.addAttribute("msg", "");
+        model.addAttribute("title", "添加数据");
+        model.addAttribute("action", "add");
+        model.addAttribute("msg", "注意！职务至少是干事才有权添加！");
         model.addAttribute("content", new Dynamic());
         model.addAttribute("code", "");
         return "content_post";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String add(Dynamic contents, Model model, String setCreateTime) {
         // 如果不是干事就不能添加
         if (!HttpContext.checkOffice(Office.干事))
@@ -67,20 +69,52 @@ public class DynamicsControl {
         }
 
         if (service.add(contents)) {
-            // 如果添加失败
+            // 如果添加成功
             return PopUps.info(model, "添加成功", "/content");
         }
-        // 否则添加成功
+        // 否则添加失败
+        model.addAttribute("title", "添加数据");
+        model.addAttribute("action", "add");
         model.addAttribute("msg", "添加失败");
         model.addAttribute("content", contents);
         model.addAttribute("code", PopUps.popCode("添加失败"));
         return "content_post";
     }
 
+    @GetMapping("/modify")
+    public String modify(Model model, int id) {
+        model.addAttribute("title", "修改数据");
+        model.addAttribute("action", "modify?id=" + id);
+        model.addAttribute("msg", "注意！职务至少是干事才有权修改！");
+        model.addAttribute("content", service.getDynamic(id));
+        model.addAttribute("code", "");
+        return "content_post";
+    }
+
+    @PostMapping("/modify")
+    public String modifyDo(Model model, int id, Dynamic dynamic, String setCreateTime) {
+        if (!HttpContext.checkOffice(Office.干事))
+            return PopUps.unOffice(model, Office.干事);
+        if (setCreateTime != null && !setCreateTime.isEmpty()) {
+            dynamic.setCreateTime(LocalDateTime.parse(setCreateTime));
+        }
+        if (service.modify(dynamic)) {
+            // 如果成功
+            return PopUps.info(model, "修改成功！", "/content");
+        }
+        // 如果失败
+        model.addAttribute("title", "修改数据");
+        model.addAttribute("action", "modify?id=" + id);
+        model.addAttribute("msg", "修改失败！");
+        model.addAttribute("content", dynamic);
+        model.addAttribute("code", PopUps.popCode("修改失败！"));
+        return "content_post";
+    }
+
     @GetMapping("/remove")
     public String remove(int id, Model model) {
-        if(!HttpContext.checkOffice(Office.小组长))
-            return PopUps.unOffice(model,Office.小组长);
+        if (!HttpContext.checkOffice(Office.小组长))
+            return PopUps.unOffice(model, Office.小组长);
 
         boolean remove = service.remove(id);
         // 修改为封装的方法

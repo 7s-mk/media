@@ -26,6 +26,10 @@
         function renew() {
             location.href = "/user";
         }
+
+        function add() {
+            location.href = "/user/add";
+        }
     </script>
 </head>
 <body>
@@ -40,18 +44,23 @@
 <button id="reset" class="btn btn-danger" onclick="renew()">
     <span class="glyphicon glyphicon-repeat"></span> 恢复
 </button>&nbsp;
+<button class="btn btn-success" onclick="add()">
+    <span class="glyphicon glyphicon-plus"></span> 添加数据
+</button>&nbsp;
 共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp;
 <p style="color: #0492ff">只显示低于自己职务等级的用户</p>
 <div class="table-responsive">
     <table id="listCustomer" class="table table-striped">
         <thead>
-        <th>姓名</th>
-        <th>用户名</th>
-        <th>密码</th>
-        <th>部门</th>
-        <th>职务</th>
-        <th>联系方式</th>
-        <th>操作</th>
+        <tr>
+            <th>姓名</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>部门</th>
+            <th>职务</th>
+            <th>联系方式</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody id="searchVar">
         <!-- 预留数据 -->

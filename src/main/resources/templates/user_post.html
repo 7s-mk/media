@@ -12,7 +12,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>添加用户</title>
+    <title th:text="${title}">添加用户</title>
     <!-- Bootstrap JQ核心CSS 、JS-->
     <script src="/static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -27,8 +27,9 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="page-header">添加用户</h1>
-    <form id="goods" class="form-horizontal" role="form" action="/user/add" method="post">
+    <h1 class="page-header" th:text="${title}">添加用户</h1>
+    <form id="goods" class="form-horizontal" role="form" action="/user/add" method="post"
+          th:action="'/user/'+${action}">
         <div class="form-group">
             <label class="col-sm-2 control-label" for="username">
                 用户名：
@@ -59,8 +60,10 @@
                 部门：
             </label>
             <div class="col-sm-10">
-                <select class="bootstrap-select form-control" data-style="btn-info" id="department" name="department"
-                        th:selected="${user.getDepartment()}">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="department" name="department">
+                    <option value="未知部门" th:value="${user.getDepartment()}"
+                            th:text="'默认选中:'+${user.getDepartment()}">未知部门
+                    </option>
                     <option value="新媒体">新媒体</option>
                     <option value="主席团">主席团</option>
                     <option value="播主部">播主部</option>
@@ -68,7 +71,6 @@
                     <option value="记者部">记者部</option>
                     <option value="摄制部">摄制部</option>
                     <option value="质检部">质检部</option>
-                    <option value="未知部门">未知部门</option>
                 </select>
             </div>
         </div>
@@ -77,8 +79,10 @@
                 职务：
             </label>
             <div class="col-sm-10">
-                <select class="bootstrap-select form-control" data-style="btn-info" id="office" name="office"
-                        th:selected="${user.getOffice()}">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="office" name="office">
+                    <option value="测试" th:value="${user.getOffice()}"
+                            th:text="'默认选中:'+${user.getOffice()}">测试
+                    </option>
                     <option value="访客">访客</option>
                     <option value="测试">测试</option>
                     <option value="干事">干事</option>
@@ -112,7 +116,7 @@
             <div class="col-sm-10">
                 <p style="color: red" th:text="${msg}"></p>
                 <input type="submit" class="btn btn-lg btn-info btn-block" style="margin-top: 10px" id="btn_submit"
-                       value="OK!">
+                       value="OK!" th:value="${title}">
             </div>
         </div>
 

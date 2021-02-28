@@ -47,7 +47,9 @@ public class UserControl {
 
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("msg", "");
+        model.addAttribute("title", "添加用户");
+        model.addAttribute("action", "add");
+        model.addAttribute("msg", "注意！职务至少是部长才有权添加！");
         model.addAttribute("user", new User());
         model.addAttribute("code", "");
         return "user_post";
@@ -56,13 +58,15 @@ public class UserControl {
     @PostMapping("/add")
     public String addDo(Model model, User user) {
         // 如果权限不足
-        if (!HttpContext.checkOffice(Office.小组长))
-            return PopUps.unOffice(model, Office.小组长);
+        if (!HttpContext.checkOffice(Office.部长))
+            return PopUps.unOffice(model, Office.部长);
         // 添加成功
         if (service.addUser(user)) {
             return PopUps.info(model, "添加成功", "/user");
         }
         // 添加失败
+        model.addAttribute("title", "添加用户");
+        model.addAttribute("action", "add");
         model.addAttribute("msg", "添加失败!添加的职务必须低于自己当前职务");
         model.addAttribute("user", user);
         model.addAttribute("code", PopUps.popCode("添加失败！"));
@@ -71,9 +75,27 @@ public class UserControl {
 
     @GetMapping("/modify")
     public String modify(Model model, int id) {
-        if (!HttpContext.checkOffice(Office.小组长))
-            return PopUps.unOffice(model, Office.小组长);
-        return PopUps.info(model, "未开放" + id);
+        model.addAttribute("title", "修改用户");
+        model.addAttribute("action", "modify?id=" + id);
+        model.addAttribute("msg", "注意！职务至少是部长才有权修改！");
+        model.addAttribute("user", service.getUser(id));
+        model.addAttribute("code", "");
+        return "user_post";
+    }
+
+    @PostMapping("/modify")
+    public String modifyDo(Model model, User user, int id) {
+        if (!HttpContext.checkOffice(Office.部长))
+            return PopUps.unOffice(model, Office.部长);
+        if (service.modify(user)) {
+            return PopUps.info(model, "修改成功！", "/user");
+        }
+        model.addAttribute("title", "修改用户");
+        model.addAttribute("action", "modify?id=" + id);
+        model.addAttribute("msg", "修改失败！职务不能高于登录用户的职务且用户名不可重复！");
+        model.addAttribute("user", user);
+        model.addAttribute("code",PopUps.popCode( "修改失败！"));
+        return "user_post";
     }
 
 

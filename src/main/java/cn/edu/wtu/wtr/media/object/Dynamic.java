@@ -36,7 +36,7 @@ public class Dynamic implements Serializable {
      *
      * @mbg.generated 2021-02-27 21:30:07
      */
-    private String platform;
+    private String platform="未设置";
 
     /**
      * 类型
@@ -71,7 +71,7 @@ public class Dynamic implements Serializable {
      *
      * @mbg.generated 2021-02-27 21:30:07
      */
-    private String url;
+    private String url="#";
 
     /**
      * 阅读

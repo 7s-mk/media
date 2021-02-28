@@ -43,4 +43,11 @@ public interface IUserService {
      */
     List<User> getUser(String key);
 
+    /**
+     * 根据id获取
+     * @param id id
+     * @return user
+     */
+    User getUser(int id);
+
 }
