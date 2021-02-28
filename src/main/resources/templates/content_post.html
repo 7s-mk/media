@@ -34,7 +34,8 @@
                 内容平台：
             </label>
             <div class="col-sm-10">
-                <select class="bootstrap-select form-control" data-style="btn-info" id="platform" name="platform">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="platform" name="platform"
+                th:selected="${content.getPlatform()}">
                     <option value="哔哩哔哩">哔哩哔哩</option>
                     <option value="QQ空间">QQ空间</option>
                     <option value="抖音">抖音</option>

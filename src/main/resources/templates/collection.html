@@ -19,27 +19,25 @@
     <script src="../static/static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="../static/static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
     <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
-    <script src="../static/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <script src="../static/static/linling-core-tools/js/ie10-viewport-bug-workaround.js"
+            type="text/javascript"></script>
     <link href="../static/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <div th:utext="${code}">
-
-    </div>
     <script>
-        function collection(src){
-            if(src===1){
+        function collection(src) {
+            if (src === 1) {
                 alert("正在采集哔哩哔哩数据");
             }
         }
 
-        function collectionSingle(src){
-            if(src===1){
-               let id=prompt("请输入动态ID\n动态页面地址https://t.bilibili.com/XXX?中的XXX(注意不包括问好)");
-               alert(id);
+        function collectionSingle(src) {
+            if (src === 1) {
+                let id = prompt("请输入动态ID\n动态页面地址https://t.bilibili.com/XXX?中的XXX(注意不包括问好)");
+                alert(id);
             }
         }
 
-        function renew(src){
-            if(src===1){
+        function renew(src) {
+            if (src === 1) {
                 alert("哔哩哔哩刷新成功")
             }
         }

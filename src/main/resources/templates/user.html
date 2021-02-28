@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>数据</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="/static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script type="text/javascript">
+        function search() {
+            let key = $("#nameKey").val();
+            location.href = "/user?key=" + key;
+        }
+
+        function renew() {
+            location.href = "/user";
+        }
+    </script>
+</head>
+<body>
+<h1 class="page-header">用户管理</h1>
+<span>搜索姓名：</span>
+<label for="nameKey" class="form-inline">
+    <input type="text" id="nameKey" class="form-control" th:value="${key}">&nbsp;&nbsp;
+</label>
+<button id="search" class="btn btn-primary" onclick="search()">
+    <span class="glyphicon glyphicon-search"></span> 搜索
+</button>&nbsp;
+<button id="reset" class="btn btn-danger" onclick="renew()">
+    <span class="glyphicon glyphicon-repeat"></span> 恢复
+</button>&nbsp;
+共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp;
+<p style="color: #0492ff">只显示低于自己职务等级的用户</p>
+<div class="table-responsive">
+    <table id="listCustomer" class="table table-striped">
+        <thead>
+        <th>姓名</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>部门</th>
+        <th>职务</th>
+        <th>联系方式</th>
+        <th>操作</th>
+        </thead>
+        <tbody id="searchVar">
+        <!-- 预留数据 -->
+        <tr th:each="row:${content}">
+            <td th:text="${row.getName()}">2</td>
+            <td th:text="${row.getUsername()}">2</td>
+            <td th:text="${row.getPassword()}">2</td>
+            <td th:text="${row.getDepartment()}">2</td>
+            <td th:text="${row.getOffice()}">2</td>
+            <td>
+                <p>QQ:<span th:text="${row.getQQ()}"></span></p>
+                <p>电话:<span th:text="${row.getPhone()}"></span></p>
+            </td>
+            <td>
+                <p><a href="#" th:href="'/user/modify?id='+${row.getId()}">修改</a></p>
+                <p><a href="#" th:href="'/user/remove?id='+${row.getId()}">删除</a></p>
+            </td>
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <!-- 尾部数据 -->
+        <tr></tr>
+        </tfoot>
+    </table>
+</div>
+</body>
+</html>

@@ -1,8 +1,10 @@
 package cn.edu.wtu.wtr.media.Controller;
 
-import cn.edu.wtu.wtr.media.dao.DynamicDao;
 import cn.edu.wtu.wtr.media.object.Dynamic;
+import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.service.IDynamicService;
+import cn.edu.wtu.wtr.media.util.HttpContext;
+import cn.edu.wtu.wtr.media.util.PopUps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,15 @@ public class DynamicsControl {
     @Autowired
     private IDynamicService service;
 
-    @Autowired
-    private DynamicDao dao;
-
-
     @GetMapping
     public String getAll(String key, Integer size, Integer page, Model model) {
+        // 如果连访客权限都没有就是未登录
+        if (!HttpContext.checkOffice(Office.访客))
+            return PopUps.unLogin(model);
+        System.out.println(HttpContext.getOffice());
+        System.out.println(HttpContext.checkOffice(Office.访客));
+
+        // 登录了才能获取
         List<Dynamic> dynamics = service.getPage(key, page, size);
         long count = service.getCount(key);
         if (page == null || page < 0)
@@ -42,56 +47,43 @@ public class DynamicsControl {
     }
 
     @GetMapping("/add")
-    public String addView(Model model) {
+    public String addView(Model model) {// 如果不是干事就不能添加
         model.addAttribute("msg", "");
         model.addAttribute("content", new Dynamic());
         model.addAttribute("code", "");
-        return "add";
+        return "content_post";
     }
 
     @PostMapping
     public String add(Dynamic contents, Model model, String setCreateTime) {
+        // 如果不是干事就不能添加
+        if (!HttpContext.checkOffice(Office.干事))
+            return PopUps.unOffice(model, Office.干事);
+
         if (setCreateTime != null && !setCreateTime.isEmpty()) {
             contents.setCreateTime(LocalDateTime.parse(setCreateTime));
         } else {
             contents.setCreateTime(LocalDateTime.now());
         }
+
         if (service.add(contents)) {
-            model.addAttribute("msg", "添加失败");
-            model.addAttribute("content", new Dynamic());
-            model.addAttribute("code", "<script type=\"text/javascript\">\n" +
-                    "    alert(\"添加成功！\");\n" +
-                    "    location.href=\"/content\";\n" +
-                    "</script>");
-            return "add";
+            // 如果添加失败
+            return PopUps.info(model, "添加成功", "/content");
         }
+        // 否则添加成功
         model.addAttribute("msg", "添加失败");
         model.addAttribute("content", contents);
-        model.addAttribute("code", "<script type=\"text/javascript\">\n" +
-                "    alert(\"添加失败！\");\n" +
-                "</script>");
-        return "add";
+        model.addAttribute("code", PopUps.popCode("添加失败"));
+        return "content_post";
     }
 
     @GetMapping("/remove")
-    public String remove(int id, Model model){
+    public String remove(int id, Model model) {
+        if(!HttpContext.checkOffice(Office.小组长))
+            return PopUps.unOffice(model,Office.小组长);
+
         boolean remove = service.remove(id);
-        model.addAttribute("msg", "添加失败");
-        model.addAttribute("content", new Dynamic());
-        String msg;
-        if(remove){
-            msg = " <script>\n" +
-                    "            alert(\"删除成功\");\n" +
-                    "            location.href=\"/content\";\n" +
-                    "        </script>";
-        }
-        else{
-            msg = " <script>\n" +
-                    "            alert(\"删除失败\");\n" +
-                    "            location.href=\"/content\";\n" +
-                    "        </script>";
-        }
-        model.addAttribute("code",msg);
-        return "add";
+        // 修改为封装的方法
+        return PopUps.info(model, remove ? "删除成功！" : "删除失败");
     }
 }
