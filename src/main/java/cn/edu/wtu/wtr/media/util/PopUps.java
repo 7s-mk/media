@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 /**
  * 描述：弹窗警告
  *
- * @author lpc lpc@hll520.cn
+ * @author 郭沁雅
  * @version 1.0  2021-02-28-14:33
  * @since 2021-02-28-14:33
  */
@@ -54,7 +54,7 @@ public class PopUps {
      * @return 登录检查
      */
     public static String unLogin(Model model) {
-        return info(model, "请先登录", "/");
+        return info(model, "请先登录", "/login");
     }
 
 

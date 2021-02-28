@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>WTR媒体管理</title>
+    <title>WTR媒体管理-找不到页面</title>
     <!-- Bootstrap JQ核心CSS 、JS-->
     <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <link href="static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -50,9 +50,9 @@
                     <a href="#" id="appHostUrl"><h3 class="masthead-brand" id="appName">WTR资源管理</h3></a>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">首页</a></li>
+                            <li><a href="/">首页</a></li>
                             <li><a href="/login.html">登录</a></li>
-                            <li><a href="/login/manage">控制台</a></li>
+                            <li class="active"><a href="/login/manage">控制台</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -60,14 +60,12 @@
         </div>
 
         <div class="inner cover">
-            <h1 class="cover-heading">Hello WTRer！</h1>
+            <h1 class="cover-heading">404 NOT FOUND!</h1>
             <p class="lead">
-                只是WTR的媒体资源管理系统,方便快捷的管理WTR新媒体每天产生的海量数据<br/>
-                利用信息化的手段统计每一条数据，不漏下任何一条<br/>
-                现已支持哔哩哔哩自动采集！
+                找不到该页面，请确认访问地址是否正确！
             </p>
             <p class="lead">
-                <a href="/login/manage" class="btn btn-lg btn-default">进入系统</a>
+                <a onclick="self.location=document.referrer;" class="btn btn-lg btn-default">返回</a>
             </p>
         </div>
 

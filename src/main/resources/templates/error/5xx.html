@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>WTR媒体管理</title>
+    <title>WTR媒体管理-请求处理错误</title>
     <!-- Bootstrap JQ核心CSS 、JS-->
-    <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
-    <link href="static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <script src="/static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
     <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
-    <script src="static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
-    <link href="static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- 首页样式 -->
-    <link href="static/linling-core-tools/css/index.css" rel="stylesheet">
+    <link href="/static/linling-core-tools/css/index.css" rel="stylesheet">
     <!-- 背景样式 -->
-    <script src="static/linling-core-tools/js/three.min.js" type="text/javascript"></script>
-    <link href="static/linling-core-tools/css/background.css" rel="stylesheet">
+    <script src="/static/linling-core-tools/js/three.min.js" type="text/javascript"></script>
+    <link href="/static/linling-core-tools/css/background.css" rel="stylesheet">
     <!-- 背景 -->
     <script type="text/javascript">
         $(function () {
@@ -50,9 +50,9 @@
                     <a href="#" id="appHostUrl"><h3 class="masthead-brand" id="appName">WTR资源管理</h3></a>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">首页</a></li>
+                            <li><a href="/">首页</a></li>
                             <li><a href="/login.html">登录</a></li>
-                            <li><a href="/login/manage">控制台</a></li>
+                            <li class="active"><a href="/login/manage">控制台</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -60,14 +60,14 @@
         </div>
 
         <div class="inner cover">
-            <h1 class="cover-heading">Hello WTRer！</h1>
+            <h1 class="cover-heading" th:text="${status}">错误</h1>
             <p class="lead">
-                只是WTR的媒体资源管理系统,方便快捷的管理WTR新媒体每天产生的海量数据<br/>
-                利用信息化的手段统计每一条数据，不漏下任何一条<br/>
-                现已支持哔哩哔哩自动采集！
+                错误:<span th:text="${path}"></span><br/>
+                错误路径:<span th:text="${message}"></span><br/>
+                发生时间:<span th:text="${timestamp}"></span>
             </p>
             <p class="lead">
-                <a href="/login/manage" class="btn btn-lg btn-default">进入系统</a>
+                <a onclick="self.location=document.referrer;" class="btn btn-lg btn-default">返回</a>
             </p>
         </div>
 

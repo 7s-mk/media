@@ -56,6 +56,13 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.hll520.linclient/BilibiliClient -->
+        <dependency>
+            <groupId>cn.hll520.linclient</groupId>
+            <artifactId>BilibiliClient</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
 
     </dependencies>
 

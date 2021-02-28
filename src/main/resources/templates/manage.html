@@ -41,7 +41,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">WTR资源管理</a>
+            <a class="navbar-brand" href="/">WTR资源管理</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-link">
@@ -50,7 +50,7 @@
                 <li><a href="/user" target="_view">用户管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" target="_view">
+                <li><a href="/login/my" target="_view">
                     <span id="userName" th:text="${user.getName()}">姓名</span>
                 </a></li>
             </ul>
@@ -89,7 +89,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <!-- iframe -->
             <iframe frameborder="0" height="90%" id="_view" name="_view" width="100%"
-                    src="https://space.bilibili.com/392819792">
+                    src="/login/my">
             </iframe>
         </div>
 

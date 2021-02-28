@@ -23,28 +23,47 @@
             type="text/javascript"></script>
     <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <script>
+        let i = 0;
+
+        function time() {
+            $("#info").html(`
+                    <h1 class="page-header">正在采集/刷新ing...<br/>已用时
+                    <span style="color: #4cae4c;" id="time">0
+                    </span>秒,请稍后....
+                    </h1>
+            `);
+            setInterval(function () {
+                i += 0.1;
+                $("#time").html(i);
+            }, 100);
+        }
+
         function collection(src) {
             if (src === 1) {
-                alert("正在采集哔哩哔哩数据");
+                time();
+                location.href = "/collection/bilibili/all";
             }
         }
 
         function collectionSingle(src) {
             if (src === 1) {
                 let id = prompt("请输入动态ID\n动态页面地址https://t.bilibili.com/XXX?中的XXX(注意不包括问好)");
-                alert(id);
+                location.href = "/collection/bilibili/single?mid=" + id;
             }
         }
 
         function renew(src) {
             if (src === 1) {
-                alert("哔哩哔哩刷新成功")
+                time();
+                location.href = "/collection/bilibili/update";
             }
         }
     </script>
 </head>
 <body>
 <div class="container">
+    <div class="col-sm-10" id="info">
+    </div>
     <div class="col-sm-10">
         <h1 class="page-header">数据采集</h1>
         <p>自动采集以下来源的数据</p>

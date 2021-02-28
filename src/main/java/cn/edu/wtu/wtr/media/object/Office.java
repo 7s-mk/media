@@ -3,7 +3,7 @@ package cn.edu.wtu.wtr.media.object;
 /**
  * 描述： 权限
  *
- * @author lpc lpc@hll520.cn
+ * @author 郭沁雅
  * @version 1.0  2021-02-28-14:30
  * @since 2021-02-28-14:30
  */
