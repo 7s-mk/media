@@ -2,6 +2,7 @@ package cn.edu.wtu.wtr.media.util;
 
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;
+import cn.edu.wtu.wtr.media.util.education.login.JWClient;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -71,6 +72,21 @@ public class HttpContext {
         if (request != null) {
             request.getSession().removeAttribute(name);
         }
+    }
+
+    /**
+     * 获取JW系统
+     *
+     * @return jw客户端
+     */
+    public static JWClient getJWClient() {
+        String name = "wtu_tr_jw_client";
+        JWClient jwClient = (JWClient) get(name);
+        if (jwClient == null) {
+            jwClient = new JWClient();
+            set(name, jwClient);
+        }
+        return jwClient;
     }
 
     /**
