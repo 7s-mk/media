@@ -135,4 +135,13 @@ public class HttpContext {
     public static boolean checkOffice(Office office) {
         return getOffice().compareTo(office) >= 0;
     }
+
+    /**
+     * 判断是否登录
+     *
+     * @return 是否登录
+     */
+    public static boolean checkLogin() {
+        return getOffice().compareTo(Office.测试) >= 0;
+    }
 }

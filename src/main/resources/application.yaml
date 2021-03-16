@@ -21,6 +21,6 @@ spring:
 mybatis:
   mapper-locations: classpath:dao/*Dao.xml
 
-#logging:
-#  level:
-#    cn.edu.wtu.wtr.media.dao.**: debug
+logging:
+  level:
+    cn.edu.wtu.wtr.media.dao.**: debug

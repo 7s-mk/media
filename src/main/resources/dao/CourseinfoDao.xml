@@ -3,9 +3,12 @@
 <mapper namespace="cn.edu.wtu.wtr.media.dao.CourseinfoDao">
   <resultMap id="BaseResultMap" type="cn.edu.wtu.wtr.media.object.Courseinfo">
     <!--@mbg.generated-->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="id" jdbcType="INTEGER" property="id" />
     <result column="sid" jdbcType="VARCHAR" property="sid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="term" jdbcType="VARCHAR" property="term" />
     <result column="courses" jdbcType="VARCHAR" property="courses" />
     <result column="dateTime" jdbcType="TIMESTAMP" property="dateTime" />
   </resultMap>
@@ -71,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, sid, `name`, courses, `dateTime`
+    cid, id, sid, `name`, `year`, term, courses, `dateTime`
   </sql>
   <select id="selectByExample" parameterType="cn.edu.wtu.wtr.media.object.CourseinfoExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -101,12 +104,12 @@
     select 
     <include refid="Base_Column_List" />
     from courseInfo
-    where id = #{id,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
     delete from courseInfo
-    where id = #{id,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="cn.edu.wtu.wtr.media.object.CourseinfoExample">
     <!--@mbg.generated-->
@@ -115,22 +118,33 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="cid" keyProperty="cid" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into courseInfo (sid, `name`, courses, 
+    insert into courseInfo (id, sid, `name`, 
+      `year`, term, courses, 
       `dateTime`)
-    values (#{sid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{courses,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR}, #{courses,jdbcType=VARCHAR}, 
       #{dateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="cid" keyProperty="cid" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into courseInfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="sid != null">
         sid,
       </if>
       <if test="name != null">
         `name`,
+      </if>
+      <if test="year != null">
+        `year`,
+      </if>
+      <if test="term != null">
+        term,
       </if>
       <if test="courses != null">
         courses,
@@ -140,11 +154,20 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="sid != null">
         #{sid,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        #{term,jdbcType=VARCHAR},
       </if>
       <if test="courses != null">
         #{courses,jdbcType=VARCHAR},
@@ -165,6 +188,9 @@
     <!--@mbg.generated-->
     update courseInfo
     <set>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
@@ -173,6 +199,12 @@
       </if>
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        `year` = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.term != null">
+        term = #{record.term,jdbcType=VARCHAR},
       </if>
       <if test="record.courses != null">
         courses = #{record.courses,jdbcType=VARCHAR},
@@ -188,9 +220,12 @@
   <update id="updateByExample" parameterType="map">
     <!--@mbg.generated-->
     update courseInfo
-    set id = #{record.id,jdbcType=INTEGER},
+    set cid = #{record.cid,jdbcType=INTEGER},
+      id = #{record.id,jdbcType=INTEGER},
       sid = #{record.sid,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
+      `year` = #{record.year,jdbcType=VARCHAR},
+      term = #{record.term,jdbcType=VARCHAR},
       courses = #{record.courses,jdbcType=VARCHAR},
       `dateTime` = #{record.dateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -201,11 +236,20 @@
     <!--@mbg.generated-->
     update courseInfo
     <set>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
       <if test="sid != null">
         sid = #{sid,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        `year` = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        term = #{term,jdbcType=VARCHAR},
       </if>
       <if test="courses != null">
         courses = #{courses,jdbcType=VARCHAR},
@@ -214,15 +258,18 @@
         `dateTime` = #{dateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo">
     <!--@mbg.generated-->
     update courseInfo
-    set sid = #{sid,jdbcType=VARCHAR},
+    set id = #{id,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
+      `year` = #{year,jdbcType=VARCHAR},
+      term = #{term,jdbcType=VARCHAR},
       courses = #{courses,jdbcType=VARCHAR},
       `dateTime` = #{dateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
   </update>
 </mapper>

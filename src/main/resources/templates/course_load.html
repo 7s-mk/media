@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+ *  创建时间: 2021-02-03-8:49
+ *  作   者: lpc
+ *  Email : lpc@hll520.cn
+-->
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>载入课程表信息</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="/static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="page-header">载入课表</h1>
+    <form id="goods" class="form-horizontal" role="form" action="/course/load" method="post">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="sid">
+                学号：
+            </label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="sid" name="sid">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="pwd">
+                密码：
+            </label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="pwd" name="pwd">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="xn">
+                学年：
+            </label>
+            <div class="col-sm-10">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="xn" name="xn">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="xq">
+                学期：
+            </label>
+            <div class="col-sm-10">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="xq" name="xq">
+                    <option value="12">上学期（12月）</option>
+                    <option value="3">下学期（3月）</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="code">
+                验证码：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="code" name="code">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+            </label>
+            <div class="col-sm-10">
+                <img src="/course/open"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="btn_submit">
+            </label>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-lg btn-info btn-block" style="margin-top: 10px" id="btn_submit"
+                       value="载入课表">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

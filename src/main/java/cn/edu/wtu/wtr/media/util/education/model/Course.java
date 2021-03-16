@@ -45,6 +45,10 @@ public class Course {
      */
     private Range week;
     /**
+     * 周数详情
+     */
+    private String weekDesc;
+    /**
      * 时间
      */
     private Range time;
@@ -60,7 +64,14 @@ public class Course {
      * 考试类型
      */
     private String testType;
-
+    /**
+     * 学年
+     */
+    private String year;
+    /**
+     * 学期
+     */
+    private String term;
     /**
      * 更新时间
      */
@@ -104,6 +115,11 @@ public class Course {
         course.setWeek(buildWeek(json.getZcd()));
         course.setTime(buildNumber(json.getJcs()));
 
+        // 详情
+        course.setWeekDesc(json.getZcd());
+        course.setYear(json.getXnm());
+        course.setTerm(json.getXqm());
+
         course.setDesc(json.getKcxszc());
         course.setCategory(json.getKcxz());
         course.setTestType(json.getKhfsmc());
@@ -124,8 +140,7 @@ public class Course {
             if (weekName != null && weekName.length() > 1) {
                 if (!weekName.contains(",")) {
                     return buildNumber(weekName.substring(0, weekName.length() - 1));
-                }
-                else {
+                } else {
                     // todo 待解决1-15周,17
                     return buildWeek(weekName.split(",")[0]);
                 }
@@ -175,6 +190,11 @@ public class Course {
             this();
             this.min = min;
             this.max = max;
+        }
+
+        @Override
+        public String toString() {
+            return min + "-" + max + "周";
         }
     }
 }

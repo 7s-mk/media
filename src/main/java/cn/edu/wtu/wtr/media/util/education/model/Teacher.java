@@ -28,4 +28,9 @@ public class Teacher {
         this.name = name;
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + position;
+    }
 }
