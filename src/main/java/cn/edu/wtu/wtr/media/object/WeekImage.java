@@ -47,7 +47,7 @@ public class WeekImage {
         for (int time = 0; time < 8; time++) {
             obj.add(new ArrayList<>());
             // 初始化星期 1-5
-            for (int week = 0; week < 6; week++) {
+            for (int week = 0; week < 8; week++) {
                 obj.get(time).add(week == 0 ? timeHeard(time) : fill(time));
             }
         }

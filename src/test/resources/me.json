@@ -1,0 +1,470 @@
+[
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 7,
+      "max": 7
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考查",
+    "local": "YG03-308",
+    "teacher": {
+      "name": "丁益祥",
+      "position": "副教授"
+    },
+    "name": "数据库原理及应用",
+    "term": "3",
+    "id": "04330138",
+    "time": {
+      "min": 1,
+      "max": 2
+    },
+    "weekDesc": "7周",
+    "category": "专业必",
+    "day": 1,
+    "desc": "讲课:32,实验:16"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 18
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG07-233",
+    "teacher": {
+      "name": "王辞",
+      "position": "讲师"
+    },
+    "name": "大学基础英语BⅢ",
+    "term": "3",
+    "id": "10310018",
+    "time": {
+      "min": 3,
+      "max": 5
+    },
+    "weekDesc": "1-18周",
+    "category": "通识课",
+    "day": 1,
+    "desc": "讲课:48"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 17
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "未排地点",
+    "teacher": {
+      "name": "章红",
+      "position": "副教授"
+    },
+    "name": "体育Ⅲ(武术)",
+    "term": "3",
+    "id": "0305",
+    "time": {
+      "min": 6,
+      "max": 7
+    },
+    "weekDesc": "1-17周",
+    "category": "通识课",
+    "day": 1,
+    "desc": "讲课:32"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 12
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-512",
+    "teacher": {
+      "name": "王小刚",
+      "position": "副教授"
+    },
+    "name": "面向对象程序设计A",
+    "term": "3",
+    "id": "04330078",
+    "time": {
+      "min": 8,
+      "max": 9
+    },
+    "weekDesc": "1-12周",
+    "category": "专业选",
+    "day": 1,
+    "desc": "讲课:24,实验:16"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 14
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-308",
+    "teacher": {
+      "name": "徐涛",
+      "position": "讲师"
+    },
+    "name": "数据结构",
+    "term": "3",
+    "id": "04330009",
+    "time": {
+      "min": 10,
+      "max": 12
+    },
+    "weekDesc": "1-14周",
+    "category": "学科基",
+    "day": 1,
+    "desc": "讲课:48,实验:24"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 15
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-316",
+    "teacher": {
+      "name": "郭健勇",
+      "position": "副教授"
+    },
+    "name": "大学物理AⅡ",
+    "term": "3",
+    "id": "03330002",
+    "time": {
+      "min": 1,
+      "max": 2
+    },
+    "weekDesc": "1-15周",
+    "category": "学科基",
+    "day": 2,
+    "desc": "讲课:56"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 5
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-307",
+    "teacher": {
+      "name": "何小亚",
+      "position": "教授"
+    },
+    "name": "离散数学",
+    "term": "3",
+    "id": "04330008",
+    "time": {
+      "min": 6,
+      "max": 7
+    },
+    "weekDesc": "1-5周,7-18周",
+    "category": "专业必",
+    "day": 2,
+    "desc": "讲课:64"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 17
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-511",
+    "teacher": {
+      "name": "夏红强",
+      "position": "教授"
+    },
+    "name": "常微分方程",
+    "term": "3",
+    "id": "04330049",
+    "time": {
+      "min": 8,
+      "max": 9
+    },
+    "weekDesc": "1-17周",
+    "category": "专业必",
+    "day": 2,
+    "desc": "讲课:32"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 12
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考查",
+    "local": "YG03-217",
+    "teacher": {
+      "name": "陈星",
+      "position": "讲师"
+    },
+    "name": "基础日语口语",
+    "term": "3",
+    "id": "10311004",
+    "time": {
+      "min": 10,
+      "max": 12
+    },
+    "weekDesc": "1-12周",
+    "category": "通选",
+    "day": 2,
+    "desc": "讲课:32"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 12
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-320",
+    "teacher": {
+      "name": "李建想",
+      "position": "讲师"
+    },
+    "name": "马克思主义基本原理",
+    "term": "3",
+    "id": "17310003",
+    "time": {
+      "min": 3,
+      "max": 5
+    },
+    "weekDesc": "1-12周",
+    "category": "通识课",
+    "day": 3,
+    "desc": "讲课:32"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 5
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考查",
+    "local": "YG03-302",
+    "teacher": {
+      "name": "丁益祥",
+      "position": "副教授"
+    },
+    "name": "数据库原理及应用",
+    "term": "3",
+    "id": "04330138",
+    "time": {
+      "min": 6,
+      "max": 7
+    },
+    "weekDesc": "1-5周,8-13周",
+    "category": "专业必",
+    "day": 3,
+    "desc": "讲课:32,实验:16"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 11
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG07-117",
+    "teacher": {
+      "name": "王小刚",
+      "position": "副教授"
+    },
+    "name": "面向对象程序设计A",
+    "term": "3",
+    "id": "04330078",
+    "time": {
+      "min": 8,
+      "max": 9
+    },
+    "weekDesc": "1-11周",
+    "category": "专业选",
+    "day": 3,
+    "desc": "讲课:24,实验:16"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 16
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG07-114",
+    "teacher": {
+      "name": "王辞",
+      "position": "讲师"
+    },
+    "name": "学科英语B(理工类)",
+    "term": "3",
+    "id": "10310027",
+    "time": {
+      "min": 3,
+      "max": 4
+    },
+    "weekDesc": "1-16周",
+    "category": "通识课",
+    "day": 4,
+    "desc": "讲课:32"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 14
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-T102",
+    "teacher": {
+      "name": "郭健勇",
+      "position": "副教授"
+    },
+    "name": "大学物理AⅡ",
+    "term": "3",
+    "id": "03330002",
+    "time": {
+      "min": 10,
+      "max": 11
+    },
+    "weekDesc": "1-14周",
+    "category": "学科基",
+    "day": 4,
+    "desc": "讲课:56"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 16
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-220",
+    "teacher": {
+      "name": "何小亚",
+      "position": "教授"
+    },
+    "name": "离散数学",
+    "term": "3",
+    "id": "04330008",
+    "time": {
+      "min": 1,
+      "max": 2
+    },
+    "weekDesc": "1-16周",
+    "category": "专业必",
+    "day": 5,
+    "desc": "讲课:64"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 5
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考查",
+    "local": "YG03-302",
+    "teacher": {
+      "name": "丁益祥",
+      "position": "副教授"
+    },
+    "name": "数据库原理及应用",
+    "term": "3",
+    "id": "04330138",
+    "time": {
+      "min": 3,
+      "max": 4
+    },
+    "weekDesc": "1-5周,8-13周",
+    "category": "专业必",
+    "day": 5,
+    "desc": "讲课:32,实验:16"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 1,
+      "max": 15
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-109",
+    "teacher": {
+      "name": "徐涛",
+      "position": "讲师"
+    },
+    "name": "数据结构",
+    "term": "3",
+    "id": "04330009",
+    "time": {
+      "min": 6,
+      "max": 7
+    },
+    "weekDesc": "1-15周",
+    "category": "学科基",
+    "day": 5,
+    "desc": "讲课:48,实验:24"
+  },
+  {
+    "dateTime": "2021-3-16",
+    "week": {
+      "min": 3,
+      "max": 12
+    },
+    "year": "2018",
+    "campus": "阳光校区",
+    "testType": "考试",
+    "local": "YG03-219",
+    "teacher": {
+      "name": "罗良勤",
+      "position": "讲师"
+    },
+    "name": "大学基础英语BⅡ",
+    "term": "3",
+    "id": "10310017",
+    "time": {
+      "min": 1,
+      "max": 4
+    },
+    "weekDesc": "3-12周",
+    "category": "通识课",
+    "day": 6,
+    "desc": "讲课:48"
+  }
+]
