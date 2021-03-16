@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+ *  创建时间: 2021-02-03-8:49
+ *  作   者: lpc
+ *  Email : lpc@hll520.cn
+-->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>用户注册</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <div th:utext="${code}">
+
+    </div>
+</head>
+<body>
+<div class="container">
+    <h1 class="page-header">用户注册</h1>
+    <form id="goods" class="form-horizontal" role="form" action="/login/register" method="post">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="username">
+                用户名：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="username" th:value="${user.getUsername()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">
+                姓名：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" th:value="${user.getName()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">
+                密码：
+            </label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="password"
+                       th:value="${user.getPassword()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="department">
+                部门：
+            </label>
+            <div class="col-sm-10">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="department" name="department">
+                    <option value="未知部门" th:value="${user.getDepartment()}"
+                            th:text="'默认选中:'+${user.getDepartment()}">未知部门
+                    </option>
+                    <option value="新媒体">新媒体</option>
+                    <option value="主席团">主席团</option>
+                    <option value="播主部">播主部</option>
+                    <option value="编导部">编导部</option>
+                    <option value="记者部">记者部</option>
+                    <option value="摄制部">摄制部</option>
+                    <option value="质检部">质检部</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="QQ">
+                QQ：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="QQ" name="QQ" th:value="${user.getQQ()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="phone">
+                电话：
+            </label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="phone" name="phone" th:value="${user.getPhone()}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="code">
+                邀请码：
+            </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="code" name="code">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="btn_submit">
+            </label>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-lg btn-info btn-block" style="margin-top: 10px" id="btn_submit"
+                       value="立即注册">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -60,4 +60,24 @@ public class LoginControl {
         return "personal";
     }
 
+    @GetMapping("/register")
+    public String registerView(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("code", "");
+        return "user_register";
+    }
+
+    @PostMapping("/register")
+    public String register(Model model, User user, String code) {
+        try {
+            User register = service.register(user, code);
+            if (register == null)
+                throw new RuntimeException("注册失败");
+            return PopUps.info(model, "注册成功", "/");
+        } catch (RuntimeException e) {
+            model.addAttribute("code", PopUps.popCode("注册失败！" + e.getMessage()));
+            model.addAttribute("user", user);
+            return "user_register";
+        }
+    }
 }
