@@ -2,6 +2,7 @@ package cn.edu.wtu.wtr.media.Controller;
 
 import cn.edu.wtu.wtr.media.object.CourseVo;
 import cn.edu.wtu.wtr.media.object.WeekImage;
+import cn.edu.wtu.wtr.media.object.empty.EmptyUserTable;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
 import cn.edu.wtu.wtr.media.service.ICourseService;
 import cn.edu.wtu.wtr.media.util.HttpContext;
@@ -10,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 描述：
@@ -37,12 +37,12 @@ public class CourseControl {
         return "course_load";
     }
 
-    @GetMapping()
-    public String course(Model model, String year, String term) {
+    @GetMapping("/info/{id}")
+    public String courseInfo(Model model, String year, String term, @PathVariable String id) {
         if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
         try {
-            CourseVo vo = service.getByID(HttpContext.getUser().getId(), year, term);
+            CourseVo vo = service.getByID(Integer.parseInt(id), year, term);
             model.addAttribute("courseInfo", toWeekImage(vo));
             return "course";
         } catch (Exception e) {
@@ -51,6 +51,23 @@ public class CourseControl {
             return PopUps.info(model, "加载失败,无当前学期课表!请添加载课表\\n" +
                     (e.getMessage() == null ? "" : e.getMessage()), "/course/load");
         }
+    }
+
+    @GetMapping()
+    public String course(Model model, String year, String term) {
+        if (!HttpContext.checkLogin())
+            return PopUps.unLogin(model);
+        return courseInfo(model, year, term, HttpContext.getUser().getId().toString());
+//        try {
+//            CourseVo vo = service.getByID(HttpContext.getUser().getId(), year, term);
+//            model.addAttribute("courseInfo", toWeekImage(vo));
+//            return "course";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.err.println(e.toString());
+//            return PopUps.info(model, "加载失败,无当前学期课表!请添加载课表\\n" +
+//                    (e.getMessage() == null ? "" : e.getMessage()), "/course/load");
+//        }
     }
 
     @ResponseBody
@@ -70,6 +87,37 @@ public class CourseControl {
         } catch (Exception e) {
             System.err.println(e.toString());
             return PopUps.info(model, "加载失败!\\n" + e.getMessage());
+        }
+    }
+
+    /**
+     * 查看空课表
+     *
+     * @param year 学年
+     * @param term 学期
+     * @return 空课表
+     */
+    @GetMapping("/empty")
+    public String getEmpty(String year, String term, Model model) {
+        if (!HttpContext.checkLogin())
+            return PopUps.unLogin(model);
+        if (year == null || year.isEmpty())
+            year = "2021";
+        if (term == null || term.isEmpty())
+            term = "3";
+
+        try {
+            List<CourseVo> list = service.list(year, term);
+            WeekImage weekImage = EmptyUserTable.build(list).toWeekView();
+            weekImage.setYear(year);
+            weekImage.setTerm(term);
+            model.addAttribute("emptyCourse", weekImage);
+            return "course_empty";
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.toString());
+            return PopUps.info(model, "加载失败\\n" +
+                    (e.getMessage() == null ? "" : e.getMessage()));
         }
     }
 

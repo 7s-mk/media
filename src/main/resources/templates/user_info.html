@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，响应式布局 -->
-    <title>个人中心</title>
+    <title th:text="${user.getName()}+'的空间'">用户信息</title>
     <!-- Bootstrap JQ核心CSS 、JS-->
     <script src="/static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <link href="/static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,6 @@
                     <p>QQ:<span th:text="${user.getQQ()}"></span></p>
                     <p>电话:<span th:text="${user.getPhone()}"></span></p>
                 </div>
-
             </div>
 
         </div>
@@ -59,29 +58,10 @@
             <div class="panel-body">
                 <ul class="nav nav-stacked nav-pills">
                     <li class="active">
-                        <a href="#">个人中心</a>
-                    </li>
-                    <li>
-                        <a href="/course">我的课表</a>
-                    </li>
-                    <li>
-                        <a href="/content">内容管理</a>
-                    </li>
-                    <li>
-                        <a href="/collection">数据采集</a>
-                    </li>
-                    <li>
-                        <a href="/user">用户管理</a>
-                    </li>
-                    <li>
-                        <a href="/user/modify" th:href="'/user/modify?id='+${user.getId()}">修改资料</a>
+                        <a href="/course" th:href="'/course/info/'+${user.getId()}">它的课表</a>
                     </li>
                 </ul>
             </div>
-            <p></p>
-            <a href="/login/out">
-                <button type="button" class="btn btn-default btn-block btn-danger">退出登录</button>
-            </a>
         </div>
     </div>
 </div>

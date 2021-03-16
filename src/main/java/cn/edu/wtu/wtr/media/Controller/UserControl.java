@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,6 +27,27 @@ import java.util.List;
 public class UserControl {
     @Autowired
     private UserService service;
+
+    /**
+     * 获取用户信息
+     *
+     * @param id    id
+     * @param model model
+     * @return 信息
+     */
+    @GetMapping("/info/{id}")
+    public String getUserInfo(@PathVariable String id, Model model) {
+        if (!HttpContext.checkLogin())
+            return PopUps.unLogin(model);
+        try {
+            User user = service.getUser(Integer.parseInt(id));
+            user.setPassword("****************");
+            model.addAttribute("user", user);
+            return "user_info";
+        } catch (Exception e) {
+            return PopUps.info(model, "获取信息异常或该用户不存在！", "/");
+        }
+    }
 
     @GetMapping()
     public String getAllUser(Model model, String key) {
@@ -94,7 +116,7 @@ public class UserControl {
         model.addAttribute("action", "modify?id=" + id);
         model.addAttribute("msg", "修改失败！职务不能高于登录用户的职务且用户名不可重复！");
         model.addAttribute("user", user);
-        model.addAttribute("code",PopUps.popCode( "修改失败！"));
+        model.addAttribute("code", PopUps.popCode("修改失败！"));
         return "user_post";
     }
 

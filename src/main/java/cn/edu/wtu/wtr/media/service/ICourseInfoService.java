@@ -58,4 +58,14 @@ public interface ICourseInfoService {
      */
     List<CourseVo> list();
 
+
+    /**
+     * 获取某个学期的全部
+     *
+     * @param year 学年
+     * @param term 学期
+     * @return list
+     */
+    List<CourseVo> list(String year, String term);
+
 }

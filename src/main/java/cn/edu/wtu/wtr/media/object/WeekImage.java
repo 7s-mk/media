@@ -108,6 +108,17 @@ public class WeekImage {
         }
     }
 
+
+    /**
+     * 自定义添加
+     * @param week 周  1-7
+     * @param time 时间 1，2，4，5 7
+     * @param str srt
+     */
+    public void add(int week, int time, String str) {
+        obj.get(time).set(week, str);
+    }
+
     private void addRange(int week, int time, String str) {
         switch (time) {
             case 1:

@@ -106,6 +106,19 @@ public class CourseInfoService implements ICourseInfoService {
         return CourseVo.build(dao.selectByExample(null));
     }
 
+    /**
+     * 获取某个学期的全部
+     *
+     * @param year 学年
+     * @param term 学期
+     * @return list
+     */
+    @Override
+    public List<CourseVo> list(String year, String term) {
+        CourseinfoExample example = new CourseinfoExample();
+        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term);
+        return CourseVo.build(dao.selectByExample(example));
+    }
 
     /**
      * 获取条件
