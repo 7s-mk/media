@@ -26,6 +26,13 @@ public interface ICourseInfoService {
     CourseVo load(String sid, String pwd, String code, String xn, String xq);
 
     /**
+     * 手动加载
+     * @param json json
+     * @return vo
+     */
+    CourseVo load(String json);
+
+    /**
      * 获取
      *
      * @param sid 用户id

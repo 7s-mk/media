@@ -36,6 +36,8 @@ import java.util.Scanner;
  * @since 2021-03-15-20:58
  */
 public class JWTest {
+    private static String id;
+    private static String pass;
 
     public static void main(String[] args) throws Exception {
         new JWTest().test();
@@ -74,7 +76,7 @@ public class JWTest {
         HttpResponse image = httpClient.execute(new HttpGet("https://auth.wtu.edu.cn/authserver/captcha.html"));
         HttpEntity imageEntity = image.getEntity();
         InputStream content = imageEntity.getContent();
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\lpc\\Desktop\\test\\check.jpg");
+        FileOutputStream fos = new FileOutputStream("src/test/resources/check.jpg");
         int len;
         byte[] bytes = new byte[1024];
         while ((len = content.read(bytes)) != -1) {
@@ -82,6 +84,14 @@ public class JWTest {
         }
         fos.close();
         content.close();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("学号：");
+        id = scanner.nextLine();
+        System.out.println("密码：");
+        pass = scanner.nextLine();
+        System.out.println("验证码：");
+        String check = scanner.nextLine();
 
         // AES 加密
         HttpResponse aes = httpClient.execute(new HttpGet("https://auth.wtu.edu.cn/authserver/custom/js/encrypt.js"));
@@ -93,16 +103,15 @@ public class JWTest {
         //实例化引用
         Invocable invoke = (Invocable) engine;
         //调用函数
-        String password = (String) invoke.invokeFunction("encryptAES", "hll520...", pwdkey);
-        System.out.println("passwordAes:\n" + password);
-
-        Scanner scanner = new Scanner(System.in);
-        String check = scanner.nextLine();
+        String password = (String) invoke.invokeFunction("encryptAES", pass, pwdkey);
+        System.err.println("id:\n"+id);
+        System.err.println("pass:\n"+pass);
+        System.err.println("passwordAes:\n" + password);
         // 登录
         String login = "https://auth.wtu.edu.cn/authserver/login?service=http%3A%2F%2Fjwglxt.wtu.edu.cn%2Fsso%2Fjziotlogin";
         HttpPost httpPost = new HttpPost(login);
         List<NameValuePair> pairs = new ArrayList<>();
-        pairs.add(new BasicNameValuePair("username", "1704270128"));
+        pairs.add(new BasicNameValuePair("username", id));
         pairs.add(new BasicNameValuePair("password", password));
         pairs.add(new BasicNameValuePair("captchaResponse", check));
         pairs.add(new BasicNameValuePair("lt", lt));
@@ -129,7 +138,7 @@ public class JWTest {
 
 
         // 获取课表
-        String kcbUrl = "http://jwglxt.wtu.edu.cn/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508&su=1704270128";
+        String kcbUrl = "http://jwglxt.wtu.edu.cn/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508&su="+id;
         HttpPost kcbPost = new HttpPost(kcbUrl);
         pairs = new ArrayList<>();
         pairs.add(new BasicNameValuePair("xnm", "2019"));

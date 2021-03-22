@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手动加载课表</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <br>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="/course/load">自动加载课表</a></li>
+        <li role="presentation"><a href="#">手动抓取课表</a></li>
+    </ul>
+    <h1 class="page-header">1、获取课表代码</h1>
+    <h4>1.手动登录教务系统后，在此选择正确的学年和学期，点击获取代码</h4>
+    <h4 style="color: #2aabd2">2.将弹出页面的全部内容<b style="color: red">全选</b>复制粘贴到下方输入框</h4>
+    <h4>
+        若还未登录，请<a
+            href="https://auth.wtu.edu.cn/authserver/login?service=http%3A%2F%2Fjwglxt.wtu.edu.cn%2Fsso%2Fjziotlogin"
+            target="_blank"><span class="glyphicon glyphicon-log-in"></span>
+        点击这里</a>手动登录教务系统</h4>
+    <br>
+    <form class="form-horizontal" role="form" method="post" target="_blank"
+          action="http://jwglxt.wtu.edu.cn/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="xnm">
+                学年：
+            </label>
+            <div class="col-sm-10">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="xnm" name="xnm">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="xqm">
+                学期：
+            </label>
+            <div class="col-sm-10">
+                <select class="bootstrap-select form-control" data-style="btn-info" id="xqm" name="xqm">
+                    <option value="12">上学期（12月）</option>
+                    <option value="3">下学期（3月）</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="btn_submit">
+            </label>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-lg btn-info btn-block" style="margin-top: 10px" id="btn_submit"
+                       value="获取代码">
+            </div>
+        </div>
+    </form>
+    <br>
+    <h1 class="page-header">2、手动载入课程</h1>
+    <h4>在此处<b>粘贴</b>以上跳转页面获取的全部课程代码</h4>
+    <br>
+    <form class="form-horizontal" role="form" method="post" target="_blank"
+          action="http://jwglxt.wtu.edu.cn/kbcx/xskbcx_cxXsKb.html?gnmkdm=N253508">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="json">
+                课程代码：<br>
+                <span style="color: red">（粘贴在此）</span>
+            </label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="10" name="json" id="json"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="btn_submit">
+            </label>
+            <div class="col-sm-10">
+                <input type="submit" class="btn btn-lg btn-info btn-block" style="margin-top: 10px"
+                       value="载入课表">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

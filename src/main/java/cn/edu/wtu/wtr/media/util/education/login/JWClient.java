@@ -165,10 +165,8 @@ public class JWClient {
             if (json == null)
                 return null;
 
-            // 解析课程表
-            List<CourseJSON> courseJSONSs = JSONObject.parseObject(json).getJSONArray("kbList").toJavaList(CourseJSON.class);
-            // 转换成普通课表
-            return Course.build(courseJSONSs);
+            // 解析课表
+            return JWTools.analyzeCourse(json);
         } catch (IOException e) {
             login = false;
             e.printStackTrace();

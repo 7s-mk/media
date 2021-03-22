@@ -31,12 +31,9 @@ public class CourseControl {
     @Autowired
     private ICourseInfoService service;
 
-
-    @GetMapping("/load")
-    public String load() {
-        return "course_load";
-    }
-
+    /**
+     * 查看课表
+     */
     @GetMapping("/info/{id}")
     public String courseInfo(Model model, String year, String term, @PathVariable String id) {
         if (!HttpContext.checkLogin())
@@ -70,18 +67,66 @@ public class CourseControl {
 //        }
     }
 
+    @GetMapping("/load")
+    public String load() {
+        return "course_load";
+    }
+
+    /**
+     * 验证码
+     *
+     * @return 验证码图片
+     */
     @ResponseBody
     @GetMapping(value = "/open", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] open() {
         return serviceOpen.checkImage();
     }
 
+
+    /**
+     * 自动加载课表
+     *
+     * @param sid   学号
+     * @param pwd   密码
+     * @param code  验证码
+     * @param xn    学期
+     * @param xq    学年
+     * @param model model
+     * @return 加载课表
+     */
     @PostMapping("/load")
-    public String geCourse(String sid, String pwd, String code, String xn, String xq, Model model) {
+    public String loadCourse(String sid, String pwd, String code, String xn, String xq, Model model) {
         if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
         try {
             CourseVo load = service.load(sid, pwd, code, xn, xq);
+            model.addAttribute("courseInfo", toWeekImage(load));
+            return "course";
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            return PopUps.info(model, "加载失败!\\n" + e.getMessage());
+        }
+    }
+
+    @GetMapping("/load/man")
+    public String loadMan() {
+        return "course_load_man";
+    }
+
+    /**
+     * 手动加载课表
+     *
+     * @param json  json
+     * @param model model
+     * @return 课表
+     */
+    @PostMapping("/load/man")
+    public String loadCourseMan(String json, Model model) {
+        if (!HttpContext.checkLogin())
+            return PopUps.unLogin(model);
+        try {
+            CourseVo load = service.load(json);
             model.addAttribute("courseInfo", toWeekImage(load));
             return "course";
         } catch (Exception e) {

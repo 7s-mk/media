@@ -8,7 +8,9 @@ import cn.edu.wtu.wtr.media.object.User;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
 import cn.edu.wtu.wtr.media.service.ICourseService;
 import cn.edu.wtu.wtr.media.util.HttpContext;
+import cn.edu.wtu.wtr.media.util.education.login.JWTools;
 import cn.edu.wtu.wtr.media.util.education.model.Course;
+import cn.edu.wtu.wtr.media.util.education.model.CourseStu;
 import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,19 +45,23 @@ public class CourseInfoService implements ICourseInfoService {
     @Override
     public CourseVo load(String sid, String pwd, String code, String xn, String xq) {
         List<Course> courses = service.loadCourse(sid, pwd, code, xn, xq);
-        User user = HttpContext.getUser();
-        Courseinfo courseinfo = null;
-        if (user != null) {
-            CourseinfoExample example = getExample(user.getId(), xn, xq);
-            courseinfo = new Courseinfo(user.getId(), sid, user.getName(), xn, xq,
-                    JSONArray.toJSON(courses).toString(), LocalDateTime.now());
-            List<Courseinfo> courseinfos = dao.selectByExample(example);
-            if (courseinfos != null && courseinfos.size() > 0)
-                dao.updateByExampleSelective(courseinfo, example);
-            else
-                dao.insert(courseinfo);
-        }
-        return CourseVo.build(courseinfo);
+        return handleCourses(sid, xq, xn, courses);
+    }
+
+    /**
+     * 手动加载
+     *
+     * @param json json
+     * @return vo
+     */
+    @Override
+    public CourseVo load(String json) {
+        // 解析json
+        List<Course> courses = JWTools.analyzeCourse(json);
+        CourseStu stu = JWTools.analyzeCourseStu(json);
+        if (stu != null)
+            return handleCourses(stu.getSid(), stu.getYears(), stu.getTerm(), courses);
+        throw new RuntimeException("手动加载失败");
     }
 
     /**
@@ -132,5 +138,30 @@ public class CourseInfoService implements ICourseInfoService {
         CourseinfoExample example = new CourseinfoExample();
         example.createCriteria().andIdEqualTo(id).andYearEqualTo(year).andTermEqualTo(term);
         return example;
+    }
+
+    /**
+     * 处理课表并写入
+     *
+     * @param sid     学会
+     * @param xn      学年
+     * @param xq      学期
+     * @param courses 课程表
+     * @return vo
+     */
+    private CourseVo handleCourses(String sid, String xn, String xq, List<Course> courses) {
+        User user = HttpContext.getUser();
+        Courseinfo courseinfo = null;
+        if (user != null) {
+            CourseinfoExample example = getExample(user.getId(), xn, xq);
+            courseinfo = new Courseinfo(user.getId(), sid, user.getName(), xn, xq,
+                    JSONArray.toJSON(courses).toString(), LocalDateTime.now());
+            List<Courseinfo> courseInfos = dao.selectByExample(example);
+            if (courseInfos != null && courseInfos.size() > 0)
+                dao.updateByExampleSelective(courseinfo, example);
+            else
+                dao.insert(courseinfo);
+        }
+        return CourseVo.build(courseinfo);
     }
 }
