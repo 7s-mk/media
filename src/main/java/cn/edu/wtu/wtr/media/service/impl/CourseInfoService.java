@@ -126,6 +126,52 @@ public class CourseInfoService implements ICourseInfoService {
         return CourseVo.build(dao.selectByExample(example));
     }
 
+
+    /**
+     * 获取某个学期的区别
+     *
+     * @param year 年
+     * @param term 学
+     * @param name 模糊姓名
+     * @return list
+     */
+    @Override
+    public List<CourseVo> list(String year, String term, String name, Integer size, Integer page) {
+        if (name == null || name.isEmpty())
+            return list(year, term);
+        CourseinfoExample example = new CourseinfoExample();
+        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term).andNameLike("%" + name + "%");
+        size = size == null || size < 10 ? 20 : size;
+        page = page == null || page < 1 ? 1 : page;
+        example.setLimit(size);
+        example.setOffset((long) size * (page - 1));
+        return CourseVo.build(dao.selectByExample(example));
+    }
+
+    /**
+     * 删除指定课表
+     *
+     * @param id 课表
+     * @return ok？
+     */
+    @Override
+    public boolean delCourse(int id) {
+        return dao.deleteByPrimaryKey(id) == 1;
+    }
+
+    /**
+     * 获取总数
+     */
+    @Override
+    public long count(String year, String term, String name) {
+        CourseinfoExample example = new CourseinfoExample();
+        name = name == null ? "" : name;
+        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term).andNameLike("%" + name + "%");
+        return dao.countByExample(example);
+    }
+
+    /*  封装 */
+
     /**
      * 获取条件
      *

@@ -27,6 +27,7 @@ public interface ICourseInfoService {
 
     /**
      * 手动加载
+     *
      * @param json json
      * @return vo
      */
@@ -74,5 +75,28 @@ public interface ICourseInfoService {
      * @return list
      */
     List<CourseVo> list(String year, String term);
+
+    /**
+     * 获取某个学期的区别
+     *
+     * @param year 年
+     * @param term 学
+     * @param name 模糊姓名
+     * @return list
+     */
+    List<CourseVo> list(String year, String term, String name, Integer size, Integer page);
+
+    /**
+     * 删除指定课表
+     *
+     * @param id 课表
+     * @return ok？
+     */
+    boolean delCourse(int id);
+
+    /**
+     * 获取总数
+     */
+    long count(String year, String term, String name);
 
 }

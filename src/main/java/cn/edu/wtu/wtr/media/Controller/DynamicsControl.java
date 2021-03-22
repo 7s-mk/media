@@ -30,13 +30,15 @@ public class DynamicsControl {
         System.out.println(HttpContext.checkOffice(Office.访客));
 
         // 登录了才能获取
-        List<Dynamic> dynamics = service.getPage(key, page, size);
         long count = service.getCount(key);
-        if (page == null || page < 0)
+        if (page == null || page < 0) {
             page = 1;
-        if (size == null || size < 0)
+        }
+        if (size == null || size < 0) {
             size = 20;
+        }
         int pageSum = (int) (count % size == 0 ? count / size : (count / size + 1));
+        List<Dynamic> dynamics = service.getPage(key, page, size);
 
         model.addAttribute("pageCount", pageSum);
         model.addAttribute("page", page);

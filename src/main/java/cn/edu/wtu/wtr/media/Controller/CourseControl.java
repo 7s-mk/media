@@ -1,6 +1,7 @@
 package cn.edu.wtu.wtr.media.Controller;
 
 import cn.edu.wtu.wtr.media.object.CourseVo;
+import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.WeekImage;
 import cn.edu.wtu.wtr.media.object.empty.EmptyUserTable;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
@@ -164,6 +165,69 @@ public class CourseControl {
             return PopUps.info(model, "加载失败\\n" +
                     (e.getMessage() == null ? "" : e.getMessage()));
         }
+    }
+
+
+    /* 课表管理 */
+
+
+    @GetMapping("/manage")
+    public String courseManagePage(Model model) {
+        return courseManage(null, null, null, 20, 1, model);
+    }
+
+    /**
+     * 课表管理页
+     *
+     * @return 课表管理页
+     */
+    @GetMapping("/manage/{year}/{term}")
+    public String courseManage(@PathVariable String term, @PathVariable String year, String key,
+                               Integer size, Integer page, Model model) {
+        if (!HttpContext.checkOffice(Office.部长))
+            return PopUps.unOffice(model, Office.部长);
+        if (year == null || year.isEmpty())
+            year = "2021";
+        if (term == null || term.isEmpty())
+            term = "3";
+        try {
+            long count = service.count(year, term, key);
+            if (page == null || page < 0) {
+                page = 1;
+            }
+            if (size == null || size < 0) {
+                size = 20;
+            }
+            int pageSum = (int) (count % size == 0 ? count / size : (count / size + 1));
+            List<CourseVo> list = service.list(year, term, key, size, page);
+            model.addAttribute("pageCount", pageSum);
+            model.addAttribute("page", page);
+            model.addAttribute("count", count);
+            model.addAttribute("content", list);
+            model.addAttribute("key", key);
+            model.addAttribute("year", year);
+            model.addAttribute("term", term);
+            return "course_list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return PopUps.info(model, "加载数据失败！" + e.getMessage());
+        }
+    }
+
+    /**
+     * 删除
+     */
+    @GetMapping("/manage/delete")
+    public String courseMangeDel(Integer id, Model model) {
+        if (!HttpContext.checkOffice(Office.部长))
+            return PopUps.unOffice(model, Office.部长);
+        try {
+            if (service.delCourse(id))
+                return PopUps.info(model, "删除成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return PopUps.info(model, "删除失败！");
     }
 
 

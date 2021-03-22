@@ -17,6 +17,10 @@ import java.util.List;
  */
 @Data
 public class CourseVo {
+    /**
+     * 课表id
+     */
+    private Integer cid;
 
     /**
      * 用户id
@@ -89,6 +93,7 @@ public class CourseVo {
     public static CourseVo build(Courseinfo info) {
         CourseVo courseVo = new CourseVo();
         if (info != null) {
+            courseVo.setCid(info.getCid());
             courseVo.setId(info.getId());
             courseVo.setSid(info.getSid());
             courseVo.setName(info.getName());

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>数据</title>
+    <!-- Bootstrap JQ核心CSS 、JS-->
+    <script src="static/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <link href="static/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="static/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="static/linling-core-tools/js/linling-core-tools.js" type="text/javascript"></script>
+    <!-- 适用于Surface /台式机Windows 8错误的IE10视口黑客 -->
+    <script src="static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+    <link href="static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script type="text/javascript">
+        let nowPage = 1;
+        let sumPage = 1;
+        $(function () {
+            nowPage = parseInt($("#pageNum").html());
+            sumPage = parseInt($("#pages").html());
+        })
+
+        function search() {
+            let key = $("#nameKey").val();
+            location.href = "/content?key=" + key;
+        }
+
+        function renew() {
+            location.href = "/content";
+        }
+
+        function page(page) {
+            if (page > sumPage) {
+                alert("已经是最后一页！");
+                return;
+            }
+            if (page < 1) {
+                alert("已经是第一页！")
+                return;
+            }
+
+            let key = $("#nameKey").val();
+            location.href = "/content?key=" + key + "&page=" + page;
+        }
+
+        function add() {
+            location.href = "/content/add";
+        }
+
+    </script>
+</head>
+<body>
+<h1 class="page-header">课表管理</h1>
+<span>学期切换</span>
+<label for="year" class="form-inline">
+    <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
+        <option value="2021" th:value="${courseInfo.getYear()}" th:text="'当前：'+${courseInfo.getYear()}">默认2021</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+    </select>
+</label>
+<label for="term" class="form-inline">
+    <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
+        <option value="3" th:value="${courseInfo.getTerm()}" th:text="'当前：'+${courseInfo.getTerm()}">默认下学期</option>
+        <option value="12">上学期（12月）</option>
+        <option value="3">下学期（3月）</option>
+    </select>
+</label>
+<button id="switch" class="btn btn-primary" onclick="goto()">
+    <span class="glyphicon glyphicon-refresh"></span> 切换
+</button>&nbsp;
+<!-- 搜索 -->
+<span>搜索姓名：</span>
+<label for="nameKey" class="form-inline">
+    <input type="text" id="nameKey" class="form-control" th:value="${key}">&nbsp;&nbsp;
+</label>
+<button id="search" class="btn btn-primary" onclick="search()">
+    <span class="glyphicon glyphicon-search"></span> 搜索
+</button>&nbsp;
+<button id="reset" class="btn btn-danger" onclick="renew()">
+    <span class="glyphicon glyphicon-repeat"></span> 恢复
+</button>
+共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp;
+本页共<span style="color: crimson" th:text="${content.size()}"></span>条
+<br>
+<div class="table-responsive">
+    <table id="listCustomer" class="table">
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>学年</th>
+            <th>学期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="searchVar">
+        <!-- 预留数据 -->
+        <tr th:each="row:${content}">
+            <td th:text="${row.getType()}"></td>
+            <td th:text="${row.getPlatform()}"></td>
+            <td th:text="${row.getValue()}" style="width:50%"></td>
+            <td th:text="${row.getCreateTime()}"></td>
+            <td>
+                <p><a href="#" th:href="${row.getUrl()}">详情</a></p>
+                <p><a href="#" th:href="'/content/remove?id='+${row.getId()}">删除</a></p>
+            </td>
+
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <!-- 尾部数据 -->
+        <tr></tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="icon-align-center">
+    <a href="/content" id="start" onclick="page(1)">首页</a>
+    <button id="upon" onclick="page(nowPage-1)">上一页</button>&nbsp;
+    第<span id="pageNum" style="color: #142fdc" th:text="${page}"></span>页&nbsp;
+    共<span id="pages" th:text="${pageCount}"></span>页&nbsp;
+    <button id="next" onclick="page(nowPage+1)">下一页</button>&nbsp;
+    <a href="#" id="last" onclick="page(sumPage)">末页</a>
+</div>
+</body>
+</html>
