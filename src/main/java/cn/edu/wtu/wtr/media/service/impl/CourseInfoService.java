@@ -45,7 +45,7 @@ public class CourseInfoService implements ICourseInfoService {
     @Override
     public CourseVo load(String sid, String pwd, String code, String xn, String xq) {
         List<Course> courses = service.loadCourse(sid, pwd, code, xn, xq);
-        return handleCourses(sid, xq, xn, courses);
+        return handleCourses(sid, xn, xq, courses);
     }
 
     /**
