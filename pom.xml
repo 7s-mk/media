@@ -10,9 +10,9 @@
     </parent>
     <groupId>cn.edu.wtu.wtr</groupId>
     <artifactId>media</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-release</version>
     <name>media</name>
-    <description>Demo project for Spring Boot</description>
+    <description>The WTR Manager System Project</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
