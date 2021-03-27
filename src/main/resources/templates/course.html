@@ -64,8 +64,8 @@
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
         <option value="3" th:value="${courseInfo.getTerm()}" th:text="'当前：'+${courseInfo.getTerm()}">默认下学期</option>
-        <option value="12">上学期（12月）</option>
-        <option value="3">下学期（3月）</option>
+        <option value="12">下学期（12月）</option>
+        <option value="3">上学期（3月）</option>
     </select>
 </label>
 <button id="search" class="btn btn-primary" onclick="goto()">
