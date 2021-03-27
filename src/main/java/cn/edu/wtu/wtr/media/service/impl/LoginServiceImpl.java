@@ -39,6 +39,7 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
 
     @Override
     public User register(User user, String code) {
+        check(user);
         Wtr wtr = service.getWtr(WTRRegisterManage.KEY);
         WTRRegisterManage build = WTRRegisterManage.build(wtr);
         if (build == null || !build.isOpen()) {
@@ -50,8 +51,12 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
                 && !"主席团".equals(invitationCode.getDepartment()))
             user.setDepartment(invitationCode.getDepartment());
         user.setOffice(Office.干事.toString());
-        if (dao.insert(user) == 1)
-            return user;
+        try {
+            if (dao.insert(user) == 1)
+                return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         throw new RuntimeException("用户名重复或其他异常！");
     }
 
@@ -99,5 +104,33 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
         WTRRegisterManage wtr = WTRRegisterManage.build(service.getWtr(WTRRegisterManage.KEY));
         wtr = wtr == null ? new WTRRegisterManage() : wtr;
         return wtr;
+    }
+
+
+    /**
+     * 判断用户是否正常
+     *
+     * @param user 用户
+     * @return 是否
+     */
+    private boolean check(User user) {
+        if (user == null)
+            throw new RuntimeException("失败！");
+        if (isEmpty(user.getName()))
+            throw new RuntimeException("用户名不能为空");
+        if (isEmpty(user.getPassword()))
+            throw new RuntimeException("密码不能为空");
+        return true;
+    }
+
+
+    /**
+     * 字符串判空
+     *
+     * @param s 字符串
+     * @return isE
+     */
+    private boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
     }
 }

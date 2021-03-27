@@ -1,4 +1,4 @@
-package cn.edu.wtu.wtr.media.Controller;
+package cn.edu.wtu.wtr.media.controller;
 
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;

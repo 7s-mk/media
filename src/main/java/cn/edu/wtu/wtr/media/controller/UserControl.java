@@ -1,4 +1,4 @@
-package cn.edu.wtu.wtr.media.Controller;
+package cn.edu.wtu.wtr.media.controller;
 
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;
@@ -83,8 +83,12 @@ public class UserControl {
         if (!HttpContext.checkOffice(Office.部长))
             return PopUps.unOffice(model, Office.部长);
         // 添加成功
-        if (service.addUser(user)) {
-            return PopUps.info(model, "添加成功", "/user");
+        try {
+            if (service.addUser(user)) {
+                return PopUps.info(model, "添加成功", "/user");
+            }
+        }catch (RuntimeException e){
+            return PopUps.info(model,e.getMessage());
         }
         // 添加失败
         model.addAttribute("title", "添加用户");

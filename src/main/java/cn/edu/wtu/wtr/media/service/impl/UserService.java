@@ -34,6 +34,11 @@ public class UserService implements IUserService {
     public boolean addUser(User user) {
         if (!check(user) || !HttpContext.checkOffice(user.office()))
             return false;
+        UserExample example = new UserExample();
+        example.createCriteria().andUsernameEqualTo(user.getUsername());
+        if (dao.countByExample(example) != 0) {
+            throw new RuntimeException("用户名重复");
+        }
         return dao.insertSelective(user) == 1;
     }
 
@@ -99,6 +104,23 @@ public class UserService implements IUserService {
      * @return 是否
      */
     private boolean check(User user) {
-        return user != null && user.getName() != null && user.getPassword() != null;
+        if (user == null)
+            throw new RuntimeException("失败！");
+        if (isEmpty(user.getName()))
+            throw new RuntimeException("用户名不能为空");
+        if (isEmpty(user.getPassword()))
+            throw new RuntimeException("密码不能为空");
+        return true;
+    }
+
+
+    /**
+     * 字符串判空
+     *
+     * @param s 字符串
+     * @return isE
+     */
+    private boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
     }
 }
