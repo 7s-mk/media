@@ -173,7 +173,7 @@ public class CourseControl {
 
     @GetMapping("/manage")
     public String courseManagePage(Model model) {
-        return courseManage(null, null, null, 20, 1, model);
+        return courseManage("all", "all", null, 20, 1, model);
     }
 
     /**

@@ -121,9 +121,7 @@ public class CourseInfoService implements ICourseInfoService {
      */
     @Override
     public List<CourseVo> list(String year, String term) {
-        CourseinfoExample example = new CourseinfoExample();
-        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term);
-        return CourseVo.build(dao.selectByExample(example));
+        return CourseVo.build(dao.selectByExample(getExample(year, term, null)));
     }
 
 
@@ -137,10 +135,7 @@ public class CourseInfoService implements ICourseInfoService {
      */
     @Override
     public List<CourseVo> list(String year, String term, String name, Integer size, Integer page) {
-        if (name == null || name.isEmpty())
-            return list(year, term);
-        CourseinfoExample example = new CourseinfoExample();
-        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term).andNameLike("%" + name + "%");
+        CourseinfoExample example = getExample(year, term, name);
         size = size == null || size < 10 ? 20 : size;
         page = page == null || page < 1 ? 1 : page;
         example.setLimit(size);
@@ -164,10 +159,7 @@ public class CourseInfoService implements ICourseInfoService {
      */
     @Override
     public long count(String year, String term, String name) {
-        CourseinfoExample example = new CourseinfoExample();
-        name = name == null ? "" : name;
-        example.createCriteria().andYearEqualTo(year).andTermEqualTo(term).andNameLike("%" + name + "%");
-        return dao.countByExample(example);
+        return dao.countByExample(getExample(year, term, name));
     }
 
     /*  封装 */
@@ -183,6 +175,33 @@ public class CourseInfoService implements ICourseInfoService {
     private CourseinfoExample getExample(int id, String year, String term) {
         CourseinfoExample example = new CourseinfoExample();
         example.createCriteria().andIdEqualTo(id).andYearEqualTo(year).andTermEqualTo(term);
+        return example;
+    }
+
+    /**
+     * 获取学期条件
+     * <p><b>如果是 all  表示全部</b></p>
+     *
+     * @param year 学期
+     * @param term 学年
+     * @param name 姓名模糊
+     * @return 条件
+     */
+    private CourseinfoExample getExample(String year, String term, String name) {
+        CourseinfoExample example = new CourseinfoExample();
+        CourseinfoExample.Criteria criteria = example.createCriteria();
+        // 非all 就写入年作为条件
+        if (year != null && !"all".equals(year)) {
+            criteria.andYearEqualTo(year);
+        }
+        // 非all 就写入
+        if (term != null && !"all".equals(term)) {
+            criteria.andTermEqualTo(term);
+        }
+        // 如果name 存在就 写入
+        if (name != null && !name.isEmpty()) {
+            criteria.andNameLike("%" + name + "%");
+        }
         return example;
     }
 

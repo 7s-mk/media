@@ -71,6 +71,8 @@ public class EmptyUserTable {
 
     public void add(CourseVo courseVo) {
         EmptyUser emptyUser = new EmptyUser(courseVo.getId(), courseVo.getSid(), courseVo.getName(), null);
+        emptyUser.setYear(courseVo.getYear());
+        emptyUser.setTerm(courseVo.getTerm());
         // 填充
         for (int time = 0; time < 5; time++)
             for (int week = 0; week < 5; week++)

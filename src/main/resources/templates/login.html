@@ -20,6 +20,19 @@
     <!-- 背景样式 -->
     <script src="/static/linling-core-tools/js/three.min.js" type="text/javascript"></script>
     <link href="/static/linling-core-tools/css/background.css" rel="stylesheet">
+    <!-- 背景 -->
+    <script type="text/javascript">
+        $(function () {
+            /*  从1-10中选择一个当背景  */
+            let mg = Math.floor(Math.random() * 11);
+            $("body").css({
+                "background": "url('http://wtushop.hll520.cn/image/" + mg + ".jpg') no-repeat center",
+                "background-size": "cover",
+                "-webkit-background-size": "cover",
+                "-o-background-size": "cover"
+            });
+        })
+    </script>
 </head>
 <body>
 <div class="site-wrapper">
@@ -31,10 +44,10 @@
                     <a href="#" id="appHostUrl"><h3 class="masthead-brand" id="appName">WTR资源管理</h3></a>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li><a href="#">首页</a></li>
+                            <li><a href="/">首页</a></li>
                             <li class="active"><a href="#">登录</a></li>
                             <li><a href="/login/register">注册</a></li>
-                            <li><a href="manage.html">控制台</a></li>
+                            <li><a href="/login/manage">控制台</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -65,7 +78,7 @@
                 <div class="inner">
                     <p>
                         Power by
-                        <a href="mailto:lpc@hll520.cn">@PM</a>
+                        <a href="mailto:1051211958@qq.com">@郭沁雅</a>
                         ,Personal Website for
                         <a href="https://space.bilibili.com/392819792" target="_blank">WTR</a>
                     </p>

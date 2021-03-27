@@ -22,22 +22,21 @@
         let year;
         let term;
         // let id;
-        $(function () {
-            $("#year").change(function () {
-                year = $("#year").children('option:selected').val();
-                term = $("#term").children('option:selected').val();
-            });
-            $("#term").change(function () {
-                year = $("#year").children('option:selected').val();
-                term = $("#term").children('option:selected').val();
-            })
-        });
+
+        /**
+         * 刷新
+         */
+        function referTime() {
+            year = $("#year").children('option:selected').val();
+            term = $("#term").children('option:selected').val();
+        }
 
         function load() {
             location.href = "/course/load";
         }
 
         function goto() {
+            referTime();
             location.href = "/course/info/" + id + "?year=" + year + "&term=" + term;
         }
     </script>
@@ -48,7 +47,7 @@
 <span>切换：</span>
 <label for="year" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
-        <option value="2021" th:value="${courseInfo.getYear()}" th:text="'当前：'+${courseInfo.getYear()}">默认2021</option>
+        <option value="2020" th:value="${courseInfo.getYear()}" th:text="'当前：'+${courseInfo.getYear()}">默认2020</option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
         <option value="2019">2019</option>
@@ -63,9 +62,9 @@
 </label>
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
-        <option value="3" th:value="${courseInfo.getTerm()}" th:text="'当前：'+${courseInfo.getTerm()}">默认下学期</option>
-        <option value="12">下学期（12月）</option>
+        <option value="12" th:value="${courseInfo.getTerm()}" th:text="'当前：'+${courseInfo.getTerm()}">默认下学期</option>
         <option value="3">上学期（3月）</option>
+        <option value="12">下学期（12月）</option>
     </select>
 </label>
 <button id="search" class="btn btn-primary" onclick="goto()">

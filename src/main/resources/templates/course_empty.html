@@ -20,22 +20,21 @@
     <script type="text/javascript">
         let year;
         let term;
-        $(function () {
-            $("#year").change(function () {
-                year = $("#year").children('option:selected').val();
-                term = $("#term").children('option:selected').val();
-            });
-            $("#term").change(function () {
-                year = $("#year").children('option:selected').val();
-                term = $("#term").children('option:selected').val();
-            })
-        });
+
+        /**
+         * 刷新
+         */
+        function referTime() {
+            year = $("#year").children('option:selected').val();
+            term = $("#term").children('option:selected').val();
+        }
 
         function load() {
             location.href = "/course";
         }
 
         function goto() {
+            referTime();
             location.href = "/course/empty?year=" + year + "&term=" + term;
         }
     </script>
@@ -46,7 +45,7 @@
 <span>切换：</span>
 <label for="year" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
-        <option value="2021" th:value="${emptyCourse.getYear()}" th:text="'当前：'+${emptyCourse.getYear()}">默认2021
+        <option value="2020" th:value="${emptyCourse.getYear()}" th:text="'当前：'+${emptyCourse.getYear()}">默认2020
         </option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
@@ -58,20 +57,22 @@
         <option value="2024">2024</option>
         <option value="2025">2025</option>
         <option value="2026">2026</option>
+        <option value="all">全部学年(all)</option>
     </select>
 </label>
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
-        <option value="3" th:value="${emptyCourse.getTerm()}" th:text="'当前：'+${emptyCourse.getTerm()}">默认下学期</option>
-        <option value="12">下学期（12月）</option>
+        <option value="12" th:value="${emptyCourse.getTerm()}" th:text="'当前：'+${emptyCourse.getTerm()}">默认下学期</option>
         <option value="3">上学期（3月）</option>
+        <option value="12">下学期（12月）</option>
+        <option value="all">全部学期（all)</option>
     </select>
 </label>
 <button id="search" class="btn btn-primary" onclick="goto()">
     <span class="glyphicon glyphicon-refresh"></span> 切换
 </button>&nbsp;
 <button class="btn btn-success" onclick="load()">
-    <span class="glyphicon glyphicon-plus"></span> 我的课表
+    <span class="glyphicon glyphicon-home"></span> 我的课表
 </button>&nbsp;
 <p></p>
 <div class="table-responsive">

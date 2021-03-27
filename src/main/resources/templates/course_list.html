@@ -18,8 +18,8 @@
     <script src="/static/linling-core-tools/js/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
     <link href="/static/linling-core-tools/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <script type="text/javascript">
-        let year = 2021;
-        let term = 3;
+        let year = "2021";
+        let term = "3";
         let nowPage = 1;
         let sumPage = 1;
         let key = "";
@@ -30,8 +30,8 @@
 
 
         function refData() {
-            year = parseInt($("#year").val())
-            term = parseInt($("#term").val())
+            year = $("#year").val()
+            term = $("#term").val()
             nowPage = parseInt($("#pageNum").html());
             sumPage = parseInt($("#pages").html());
             key = $("#nameKey").val();
@@ -70,7 +70,8 @@
 <span>学期切换</span>
 <label for="year" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
-        <option value="2021" th:value="${year}" th:text="'当前：'+${year}">默认2021</option>
+        <option value="all" th:value="${year}" th:text="'当前：'+${year}">默认all</option>
+        <option value="all">全部学年(all)</option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
         <option value="2019">2019</option>
@@ -85,9 +86,10 @@
 </label>
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
-        <option value="3" th:value="${term}" th:text="'当前：'+${term}">默认下学期</option>
-        <option value="12">下学期（12月）</option>
+        <option value="all" th:value="${term}" th:text="'当前：'+${term}">默认全部学期（all)</option>
         <option value="3">上学期（3月）</option>
+        <option value="12">下学期（12月）</option>
+        <option value="all">全部学期（all)</option>
     </select>
 </label>
 <button id="switch" class="btn btn-primary" onclick="goto()">
@@ -129,8 +131,11 @@
             <td th:text="${row.getTerm()}"></td>
             <td th:text="'共'+${row.getCourses().size()}+'节'"></td>
             <td>
-                <p><a href="#" th:href="'/course/info/'+${row.getId()}">详情</a></p>
-                <p><a href="#" th:href="'/course/manage/delete?id='+${row.getCid()}">删除</a></p>
+                <p><a href="#"
+                      th:href="'/course/info/'+${row.getId()}+'?year='+${row.getYear()}+'&term='+${row.getTerm()}">详情</a>
+                </p>
+                <p><a href="#" th:href="'/course/manage/delete?id='+${row.getCid()}">删除</a>
+                </p>
             </td>
             <td th:text="${row.getDateTime()}"></td>
         </tr>

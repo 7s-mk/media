@@ -26,14 +26,30 @@ public class EmptyUserList {
 
     /**
      * 转换成显示字符串
+     *
      * @return 字符串
      */
     public String toView() {
         StringBuilder builder = new StringBuilder();
-        list.forEach(emptyUser -> {
-            builder.append("<p><a ").append("href='/user/info/").append(emptyUser.getId()).append("' >")
-                    .append(emptyUser.getName()).append("</a></p>");
-        });
+        list.forEach(emptyUser -> builder.append(textName(emptyUser)));
         return builder.toString();
+    }
+
+    /**
+     * 获取显示名称
+     *
+     * @param emptyUser 空课表用户信息
+     * @return 名称字符串
+     */
+    private String textName(EmptyUser emptyUser) {
+        // top
+        String text = "<p><a href='/user/info/" + emptyUser.getId();
+        // year
+        if (emptyUser.getYear() != null && emptyUser.getTerm() != null) {
+            text += "?year=" + emptyUser.getYear() + "&term=" + emptyUser.getTerm();
+        }
+        // end
+        text += "'>" + emptyUser.getName() + "</a></p>";
+        return text;
     }
 }

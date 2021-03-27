@@ -29,6 +29,16 @@ public class EmptyUser {
      */
     private Course.Range week;
 
+    /**
+     * 年
+     */
+    private String year;
+
+    /**
+     * 学期
+     */
+    private String term;
+
     public EmptyUser() {
     }
 
