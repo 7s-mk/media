@@ -6,6 +6,7 @@ import cn.edu.wtu.wtr.media.object.WeekImage;
 import cn.edu.wtu.wtr.media.object.empty.EmptyUserTable;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
 import cn.edu.wtu.wtr.media.service.ICourseService;
+import cn.edu.wtu.wtr.media.util.ErrorTools;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.PopUps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,7 @@ public class CourseControl {
             return "course";
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.toString());
-            return PopUps.info(model, "加载失败,无当前学期课表!请添加载课表\\n" +
-                    (e.getMessage() == null ? "" : e.getMessage()), "/course/load");
+            return ErrorTools.error(model, e, "加载失败,无当前学期课表!请添加载课表\\n", "/course/load");
         }
     }
 
@@ -105,8 +104,8 @@ public class CourseControl {
             model.addAttribute("courseInfo", toWeekImage(load));
             return "course";
         } catch (Exception e) {
-            System.err.println(e.toString());
-            return PopUps.info(model, "加载失败!\\n" + e.getMessage());
+            e.printStackTrace();
+            return ErrorTools.error(model, e, "加载失败！");
         }
     }
 
@@ -132,7 +131,7 @@ public class CourseControl {
             return "course";
         } catch (Exception e) {
             System.err.println(e.toString());
-            return PopUps.info(model, "加载失败!\\n" + e.getMessage());
+            return ErrorTools.error(model, e, "加载失败!");
         }
     }
 
@@ -161,9 +160,7 @@ public class CourseControl {
             return "course_empty";
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.toString());
-            return PopUps.info(model, "加载失败\\n" +
-                    (e.getMessage() == null ? "" : e.getMessage()));
+            return ErrorTools.error(model, e, "加载失败!\\n");
         }
     }
 
@@ -209,8 +206,7 @@ public class CourseControl {
             model.addAttribute("term", term);
             return "course_list";
         } catch (Exception e) {
-            e.printStackTrace();
-            return PopUps.info(model, "加载数据失败！" + e.getMessage());
+            return ErrorTools.error(model, e, "加载数据失败！");
         }
     }
 

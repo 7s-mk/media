@@ -1,5 +1,6 @@
 package cn.edu.wtu.wtr.media.service.impl;
 
+import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.dao.CourseinfoDao;
 import cn.edu.wtu.wtr.media.object.CourseVo;
 import cn.edu.wtu.wtr.media.object.Courseinfo;
@@ -61,7 +62,7 @@ public class CourseInfoService implements ICourseInfoService {
         CourseStu stu = JWTools.analyzeCourseStu(json);
         if (stu != null)
             return handleCourses(stu.getSid(), stu.getYears(), stu.getTerm(), courses);
-        throw new RuntimeException("手动加载失败");
+        throw new MessageException("手动加载失败");
     }
 
     /**

@@ -3,6 +3,7 @@ package cn.edu.wtu.wtr.media.controller;
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.wtrsystem.WTRRegisterManage;
 import cn.edu.wtu.wtr.media.service.IRegisterManagerService;
+import cn.edu.wtu.wtr.media.util.ErrorTools;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.PopUps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class WTRSystemControl {
             return "user_rc_m";
         } catch (Exception e) {
             e.printStackTrace();
-            return PopUps.info(model, "出现错误！\\n" + e.getMessage());
+            return ErrorTools.error(model, e, "出现错误！\\n");
         }
     }
 
@@ -56,7 +57,7 @@ public class WTRSystemControl {
                 return PopUps.info(model, "添加成功", "/wtr/register");
         } catch (Exception e) {
             e.printStackTrace();
-            return PopUps.info(model, "添加失败！" + e.getMessage());
+            return ErrorTools.error(model, e, "添加失败！");
         }
         return PopUps.info(model, "添加失败！");
     }
@@ -72,7 +73,7 @@ public class WTRSystemControl {
                 return PopUps.info(model, "删除失败！");
         } catch (Exception e) {
             e.printStackTrace();
-            return PopUps.info(model, "删除失败！");
+            return ErrorTools.error(model, e, "删除失败！");
         }
     }
 
@@ -85,7 +86,7 @@ public class WTRSystemControl {
                 return PopUps.info(model, "修改成功！已" + (open ? "开放" : "关闭") + "注册");
         } catch (Exception e) {
             e.printStackTrace();
-            return PopUps.info(model, "修改失败！" + e.getMessage());
+            return ErrorTools.error(model, e, "修改失败！");
         }
         return PopUps.info(model, "修改失败！");
     }

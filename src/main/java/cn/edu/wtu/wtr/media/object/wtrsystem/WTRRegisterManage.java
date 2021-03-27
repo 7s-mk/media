@@ -1,5 +1,6 @@
 package cn.edu.wtu.wtr.media.object.wtrsystem;
 
+import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.Wtr;
 import com.alibaba.fastjson.JSONArray;
@@ -60,7 +61,7 @@ public class WTRRegisterManage {
             invitationCode = new ArrayList<>();
         for (InvitationCode invitation : invitationCode) {
             if (invitation.getCode().equals(code.getCode()))
-                throw new RuntimeException("该邀请码已经存在！请更换！");
+                throw new MessageException("该邀请码已经存在！请更换！");
         }
         return invitationCode.add(code);
     }
@@ -78,7 +79,7 @@ public class WTRRegisterManage {
             if (invitation.getCode().equals(code))
                 return invitationCode.remove(invitation);
         }
-        throw new RuntimeException("该邀请码不存在");
+        throw new MessageException("该邀请码不存在");
     }
 
     /**
@@ -93,7 +94,7 @@ public class WTRRegisterManage {
                 if (invitation.getCode().equals(code))
                     return invitation;
             }
-        throw new RuntimeException("该邀请码不存在");
+        throw new MessageException("该邀请码不存在");
     }
 
 

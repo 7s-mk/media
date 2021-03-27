@@ -1,8 +1,10 @@
 package cn.edu.wtu.wtr.media.controller;
 
+import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;
 import cn.edu.wtu.wtr.media.service.ILoginService;
+import cn.edu.wtu.wtr.media.util.ErrorTools;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.PopUps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +74,11 @@ public class LoginControl {
         try {
             User register = service.register(user, code);
             if (register == null)
-                throw new RuntimeException("注册失败");
+                throw new MessageException("注册失败");
             return PopUps.info(model, "注册成功", "/");
-        } catch (RuntimeException e) {
-            model.addAttribute("code", PopUps.popCode("注册失败！" + e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("code", PopUps.popCode(ErrorTools.errorMsg(e, "注册失败！")));
             model.addAttribute("user", user);
             return "user_register";
         }

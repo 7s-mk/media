@@ -1,10 +1,12 @@
 package cn.edu.wtu.wtr.media.service.impl;
 
+import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.dao.UserDao;
 import cn.edu.wtu.wtr.media.object.User;
 import cn.edu.wtu.wtr.media.object.UserExample;
 import cn.edu.wtu.wtr.media.service.IUserService;
 import cn.edu.wtu.wtr.media.util.HttpContext;
+import cn.edu.wtu.wtr.media.util.UserTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +34,12 @@ public class UserService implements IUserService {
      */
     @Override
     public boolean addUser(User user) {
-        if (!check(user) || !HttpContext.checkOffice(user.office()))
+        if (!UserTools.check(user) || !HttpContext.checkOffice(user.office()))
             return false;
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(user.getUsername());
         if (dao.countByExample(example) != 0) {
-            throw new RuntimeException("用户名重复");
+            throw new MessageException("用户名重复");
         }
         return dao.insertSelective(user) == 1;
     }
@@ -51,7 +53,7 @@ public class UserService implements IUserService {
     @Override
     public boolean modify(User user) {
         // 不能为空 职务不能高于自己
-        if (!check(user) || user.getId() == null || !HttpContext.checkOffice(user.office()))
+        if (!UserTools.check(user) || user.getId() == null || !HttpContext.checkOffice(user.office()))
             return false;
         return dao.updateByPrimaryKey(user) == 1;
     }
@@ -95,32 +97,5 @@ public class UserService implements IUserService {
     @Override
     public User getUser(int id) {
         return dao.selectByPrimaryKey(id);
-    }
-
-    /**
-     * 判断用户是否正常
-     *
-     * @param user 用户
-     * @return 是否
-     */
-    private boolean check(User user) {
-        if (user == null)
-            throw new RuntimeException("失败！");
-        if (isEmpty(user.getName()))
-            throw new RuntimeException("用户名不能为空");
-        if (isEmpty(user.getPassword()))
-            throw new RuntimeException("密码不能为空");
-        return true;
-    }
-
-
-    /**
-     * 字符串判空
-     *
-     * @param s 字符串
-     * @return isE
-     */
-    private boolean isEmpty(String s) {
-        return s == null || s.isEmpty();
     }
 }

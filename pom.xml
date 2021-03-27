@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.edu.wtu.wtr</groupId>
     <artifactId>media</artifactId>
-    <version>1.1.0-release</version>
+    <version>1.2.1-release</version>
     <name>media</name>
     <description>The WTR Manager System Project</description>
     <properties>

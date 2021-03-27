@@ -3,6 +3,7 @@ package cn.edu.wtu.wtr.media.controller;
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;
 import cn.edu.wtu.wtr.media.service.impl.UserService;
+import cn.edu.wtu.wtr.media.util.ErrorTools;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.PopUps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class UserControl {
             model.addAttribute("user", user);
             return "user_info";
         } catch (Exception e) {
-            return PopUps.info(model, "获取信息异常或该用户不存在！", "/");
+            return ErrorTools.error(model, e, "获取信息异常或该用户不存在！", "/");
         }
     }
 
@@ -87,15 +88,17 @@ public class UserControl {
             if (service.addUser(user)) {
                 return PopUps.info(model, "添加成功", "/user");
             }
-        }catch (RuntimeException e){
-            return PopUps.info(model,e.getMessage());
+            model.addAttribute("code", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("code", PopUps.popCode(ErrorTools.errorMsg(e, "添加失败！")));
         }
         // 添加失败
         model.addAttribute("title", "添加用户");
         model.addAttribute("action", "add");
         model.addAttribute("msg", "添加失败!添加的职务必须低于自己当前职务");
         model.addAttribute("user", user);
-        model.addAttribute("code", PopUps.popCode("添加失败！"));
+
         return "user_post";
     }
 

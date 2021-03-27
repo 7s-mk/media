@@ -1,5 +1,6 @@
 package cn.edu.wtu.wtr.media.service.impl;
 
+import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.dao.UserDao;
 import cn.edu.wtu.wtr.media.object.Office;
 import cn.edu.wtu.wtr.media.object.User;
@@ -9,6 +10,7 @@ import cn.edu.wtu.wtr.media.object.wtrsystem.WTRRegisterManage;
 import cn.edu.wtu.wtr.media.service.ILoginService;
 import cn.edu.wtu.wtr.media.service.IRegisterManagerService;
 import cn.edu.wtu.wtr.media.util.HttpContext;
+import cn.edu.wtu.wtr.media.util.UserTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,11 +41,11 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
 
     @Override
     public User register(User user, String code) {
-        check(user);
+        UserTools.check(user);
         Wtr wtr = service.getWtr(WTRRegisterManage.KEY);
         WTRRegisterManage build = WTRRegisterManage.build(wtr);
         if (build == null || !build.isOpen()) {
-            throw new RuntimeException("未开放注册!");
+            throw new MessageException("未开放注册!");
         }
         WTRRegisterManage.InvitationCode invitationCode = build.get(code);
         // 有设置 或台委会则不修改
@@ -57,7 +59,7 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("用户名重复或其他异常！");
+        throw new MessageException("用户名重复或其他异常！");
     }
 
     /**
@@ -104,33 +106,5 @@ public class LoginServiceImpl implements ILoginService, IRegisterManagerService 
         WTRRegisterManage wtr = WTRRegisterManage.build(service.getWtr(WTRRegisterManage.KEY));
         wtr = wtr == null ? new WTRRegisterManage() : wtr;
         return wtr;
-    }
-
-
-    /**
-     * 判断用户是否正常
-     *
-     * @param user 用户
-     * @return 是否
-     */
-    private boolean check(User user) {
-        if (user == null)
-            throw new RuntimeException("失败！");
-        if (isEmpty(user.getName()))
-            throw new RuntimeException("用户名不能为空");
-        if (isEmpty(user.getPassword()))
-            throw new RuntimeException("密码不能为空");
-        return true;
-    }
-
-
-    /**
-     * 字符串判空
-     *
-     * @param s 字符串
-     * @return isE
-     */
-    private boolean isEmpty(String s) {
-        return s == null || s.isEmpty();
     }
 }
