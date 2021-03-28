@@ -45,6 +45,10 @@ public class CourseVo {
      * 学期
      */
     private String term;
+    /**
+     * bm
+     */
+    private String depart;
 
     /**
      * 课程表
@@ -97,6 +101,7 @@ public class CourseVo {
             courseVo.setId(info.getId());
             courseVo.setSid(info.getSid());
             courseVo.setName(info.getName());
+            courseVo.setDepart(info.getDepart());
             courseVo.setDateTime(info.getDateTime() == null ? LocalDateTime.now() : info.getDateTime());
             if (info.getCourses() != null) {
                 try {

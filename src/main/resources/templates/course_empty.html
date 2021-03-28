@@ -20,11 +20,14 @@
     <script type="text/javascript">
         let year;
         let term;
+        let depart = "all";
+
 
         /**
          * 刷新
          */
         function referTime() {
+            depart = $("#department").val()
             year = $("#year").children('option:selected').val();
             term = $("#term").children('option:selected').val();
         }
@@ -35,17 +38,17 @@
 
         function goto() {
             referTime();
-            location.href = "/course/empty?year=" + year + "&term=" + term;
+            location.href = "/course/empty?year=" + year + "&term=" + term+"&depart="+depart;
         }
     </script>
 </head>
 <body>
 <h1 class="page-header"
-    th:text="${emptyCourse.getYear()}+'年'+${emptyCourse.getTerm()}+'月学期课表'">课程表</h1>
+    th:text="${emptyCourse.getYear()}+'年'+${emptyCourse.getTerm()}+'月学期'+${depart}+'课表'">课程表</h1>
 <span>切换：</span>
 <label for="year" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
-        <option value="2020" th:value="${emptyCourse.getYear()}" th:text="'当前：'+${emptyCourse.getYear()}">默认2020
+        <option value="2020" th:value="${emptyCourse.getYear()}" th:text="'当前学年：'+${emptyCourse.getYear()}">默认2020
         </option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
@@ -62,10 +65,26 @@
 </label>
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
-        <option value="12" th:value="${emptyCourse.getTerm()}" th:text="'当前：'+${emptyCourse.getTerm()}">默认下学期</option>
+        <option value="12" th:value="${emptyCourse.getTerm()}" th:text="'当前学期：'+${emptyCourse.getTerm()}">默认下学期</option>
         <option value="3">上学期（3月）</option>
         <option value="12">下学期（12月）</option>
         <option value="all">全部学期（all)</option>
+    </select>
+</label>
+<label for="department" class="form-inline">
+    <select class="bootstrap-select form-control" data-style="btn-info" id="department" name="department">
+        <option value="all" th:value="${depart}"
+                th:text="'当前部门:'+${depart}">全部部门
+        </option>
+        <option value="all">全部部门</option>
+        <option value="新媒体">新媒体</option>
+        <option value="主席团">主席团</option>
+        <option value="播主部">播主部</option>
+        <option value="编导部">编导部</option>
+        <option value="记者部">记者部</option>
+        <option value="摄制部">摄制部</option>
+        <option value="质检部">质检部</option>
+        <option value="外联部">外联部</option>
     </select>
 </label>
 <button id="search" class="btn btn-primary" onclick="goto()">

@@ -6,6 +6,7 @@ import cn.edu.wtu.wtr.media.object.WeekImage;
 import cn.edu.wtu.wtr.media.object.empty.EmptyUserTable;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
 import cn.edu.wtu.wtr.media.service.ICourseService;
+import cn.edu.wtu.wtr.media.util.CommonUtils;
 import cn.edu.wtu.wtr.media.util.ErrorTools;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.PopUps;
@@ -143,20 +144,23 @@ public class CourseControl {
      * @return 空课表
      */
     @GetMapping("/empty")
-    public String getEmpty(String year, String term, Model model) {
+    public String getEmpty(String year, String term, String depart, Model model) {
         if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
-        if (year == null || year.isEmpty())
+        if (CommonUtils.isNullStr(year))
             year = "2021";
-        if (term == null || term.isEmpty())
+        if (CommonUtils.isNullStr(term))
             term = "3";
+        if (CommonUtils.isNullStr(depart))
+            depart = "all";
 
         try {
-            List<CourseVo> list = service.list(year, term);
+            List<CourseVo> list = service.list(year, term, depart);
             WeekImage weekImage = EmptyUserTable.build(list).toWeekView();
             weekImage.setYear(year);
             weekImage.setTerm(term);
             model.addAttribute("emptyCourse", weekImage);
+            model.addAttribute("depart", depart);
             return "course_empty";
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +174,7 @@ public class CourseControl {
 
     @GetMapping("/manage")
     public String courseManagePage(Model model) {
-        return courseManage("all", "all", null, 20, 1, model);
+        return courseManage("all", "all", "all", "", 20, 1, model);
     }
 
     /**
@@ -179,7 +183,7 @@ public class CourseControl {
      * @return 课表管理页
      */
     @GetMapping("/manage/{year}/{term}")
-    public String courseManage(@PathVariable String term, @PathVariable String year, String key,
+    public String courseManage(@PathVariable String term, @PathVariable String year, String depart, String key,
                                Integer size, Integer page, Model model) {
         if (!HttpContext.checkOffice(Office.部长))
             return PopUps.unOffice(model, Office.部长);
@@ -188,7 +192,7 @@ public class CourseControl {
         if (term == null || term.isEmpty())
             term = "3";
         try {
-            long count = service.count(year, term, key);
+            long count = service.count(year, term, depart, key);
             if (page == null || page < 0) {
                 page = 1;
             }
@@ -196,7 +200,7 @@ public class CourseControl {
                 size = 20;
             }
             int pageSum = (int) (count % size == 0 ? count / size : (count / size + 1));
-            List<CourseVo> list = service.list(year, term, key, size, page);
+            List<CourseVo> list = service.list(year, term, depart, key, size, page);
             model.addAttribute("pageCount", pageSum);
             model.addAttribute("page", page);
             model.addAttribute("count", count);
@@ -204,6 +208,7 @@ public class CourseControl {
             model.addAttribute("key", key);
             model.addAttribute("year", year);
             model.addAttribute("term", term);
+            model.addAttribute("depart", depart);
             return "course_list";
         } catch (Exception e) {
             return ErrorTools.error(model, e, "加载数据失败！");

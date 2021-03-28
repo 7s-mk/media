@@ -121,8 +121,8 @@ public class CourseInfoService implements ICourseInfoService {
      * @return list
      */
     @Override
-    public List<CourseVo> list(String year, String term) {
-        return CourseVo.build(dao.selectByExample(getExample(year, term, null)));
+    public List<CourseVo> list(String year, String term,String depart) {
+        return CourseVo.build(dao.selectByExample(getExample(year, term,depart, null)));
     }
 
 
@@ -135,8 +135,8 @@ public class CourseInfoService implements ICourseInfoService {
      * @return list
      */
     @Override
-    public List<CourseVo> list(String year, String term, String name, Integer size, Integer page) {
-        CourseinfoExample example = getExample(year, term, name);
+    public List<CourseVo> list(String year, String term, String depart,String name, Integer size, Integer page) {
+        CourseinfoExample example = getExample(year, term,depart, name);
         size = size == null || size < 10 ? 20 : size;
         page = page == null || page < 1 ? 1 : page;
         example.setLimit(size);
@@ -159,8 +159,8 @@ public class CourseInfoService implements ICourseInfoService {
      * 获取总数
      */
     @Override
-    public long count(String year, String term, String name) {
-        return dao.countByExample(getExample(year, term, name));
+    public long count(String year, String term,String depart, String name) {
+        return dao.countByExample(getExample(year, term,depart, name));
     }
 
     /*  封装 */
@@ -188,7 +188,7 @@ public class CourseInfoService implements ICourseInfoService {
      * @param name 姓名模糊
      * @return 条件
      */
-    private CourseinfoExample getExample(String year, String term, String name) {
+    private CourseinfoExample getExample(String year, String term, String depart, String name) {
         CourseinfoExample example = new CourseinfoExample();
         CourseinfoExample.Criteria criteria = example.createCriteria();
         // 非all 就写入年作为条件
@@ -198,6 +198,10 @@ public class CourseInfoService implements ICourseInfoService {
         // 非all 就写入
         if (term != null && !"all".equals(term)) {
             criteria.andTermEqualTo(term);
+        }
+        // 部门
+        if (depart != null && !"all".equals(depart)&&!depart.isEmpty()) {
+            criteria.andDepartEqualTo(depart);
         }
         // 如果name 存在就 写入
         if (name != null && !name.isEmpty()) {
@@ -222,6 +226,8 @@ public class CourseInfoService implements ICourseInfoService {
             CourseinfoExample example = getExample(user.getId(), xn, xq);
             courseinfo = new Courseinfo(user.getId(), sid, user.getName(), xn, xq,
                     JSONArray.toJSON(courses).toString(), LocalDateTime.now());
+            // 设置部门
+            courseinfo.setDepart(user.getDepartment());
             List<Courseinfo> courseInfos = dao.selectByExample(example);
             if (courseInfos != null && courseInfos.size() > 0)
                 dao.updateByExampleSelective(courseinfo, example);

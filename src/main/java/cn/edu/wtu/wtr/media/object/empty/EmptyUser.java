@@ -39,6 +39,11 @@ public class EmptyUser {
      */
     private String term;
 
+    /**
+     * 部门
+     */
+    private String depart;
+
     public EmptyUser() {
     }
 

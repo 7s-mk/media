@@ -49,7 +49,7 @@ public class EmptyUserList {
             text += "?year=" + emptyUser.getYear() + "&term=" + emptyUser.getTerm();
         }
         // end
-        text += "'>" + emptyUser.getName() + "</a></p>";
+        text += "'>" + emptyUser.getName() + "(" + emptyUser.getDepart() + ")" + "</a></p>";
         return text;
     }
 }

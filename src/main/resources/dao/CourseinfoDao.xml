@@ -7,6 +7,7 @@
     <result column="id" jdbcType="INTEGER" property="id" />
     <result column="sid" jdbcType="VARCHAR" property="sid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="depart" jdbcType="VARCHAR" property="depart" />
     <result column="year" jdbcType="VARCHAR" property="year" />
     <result column="term" jdbcType="VARCHAR" property="term" />
     <result column="courses" jdbcType="VARCHAR" property="courses" />
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    cid, id, sid, `name`, `year`, term, courses, `dateTime`
+    cid, id, sid, `name`, depart, `year`, term, courses, `dateTime`
   </sql>
   <select id="selectByExample" parameterType="cn.edu.wtu.wtr.media.object.CourseinfoExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -121,11 +122,11 @@
   <insert id="insert" keyColumn="cid" keyProperty="cid" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into courseInfo (id, sid, `name`, 
-      `year`, term, courses, 
-      `dateTime`)
+      depart, `year`, term, 
+      courses, `dateTime`)
     values (#{id,jdbcType=INTEGER}, #{sid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{year,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR}, #{courses,jdbcType=VARCHAR}, 
-      #{dateTime,jdbcType=TIMESTAMP})
+      #{depart,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{term,jdbcType=VARCHAR}, 
+      #{courses,jdbcType=VARCHAR}, #{dateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="cid" keyProperty="cid" parameterType="cn.edu.wtu.wtr.media.object.Courseinfo" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -139,6 +140,9 @@
       </if>
       <if test="name != null">
         `name`,
+      </if>
+      <if test="depart != null">
+        depart,
       </if>
       <if test="year != null">
         `year`,
@@ -162,6 +166,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null">
+        #{depart,jdbcType=VARCHAR},
       </if>
       <if test="year != null">
         #{year,jdbcType=VARCHAR},
@@ -200,6 +207,9 @@
       <if test="record.name != null">
         `name` = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.depart != null">
+        depart = #{record.depart,jdbcType=VARCHAR},
+      </if>
       <if test="record.year != null">
         `year` = #{record.year,jdbcType=VARCHAR},
       </if>
@@ -224,6 +234,7 @@
       id = #{record.id,jdbcType=INTEGER},
       sid = #{record.sid,jdbcType=VARCHAR},
       `name` = #{record.name,jdbcType=VARCHAR},
+      depart = #{record.depart,jdbcType=VARCHAR},
       `year` = #{record.year,jdbcType=VARCHAR},
       term = #{record.term,jdbcType=VARCHAR},
       courses = #{record.courses,jdbcType=VARCHAR},
@@ -244,6 +255,9 @@
       </if>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null">
+        depart = #{depart,jdbcType=VARCHAR},
       </if>
       <if test="year != null">
         `year` = #{year,jdbcType=VARCHAR},
@@ -266,6 +280,7 @@
     set id = #{id,jdbcType=INTEGER},
       sid = #{sid,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
+      depart = #{depart,jdbcType=VARCHAR},
       `year` = #{year,jdbcType=VARCHAR},
       term = #{term,jdbcType=VARCHAR},
       courses = #{courses,jdbcType=VARCHAR},
