@@ -176,7 +176,7 @@ public class CourseInfoService implements ICourseInfoService {
     public List<User> getNotCourseUsers(String year, String term, String depart) {
         // 获取用户
         UserExample userExample = new UserExample();
-        if (CommonUtils.noNullStr(depart) && "all".equals(depart))
+        if (CommonUtils.noNullStr(depart) && !"all".equals(depart))
             userExample.createCriteria().andDepartmentEqualTo(depart);
         List<User> users = userDao.selectByExample(userExample);
         // 获取课表

@@ -101,12 +101,12 @@ public class CourseControl {
     public String loadCourse(String sid, String pwd, String code, String xn, String xq, Model model) {
         if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
-        if(CommonUtils.isNullStr(sid))
-            return PopUps.info(model,"学号不能为空!");
-        if(CommonUtils.isNullStr(pwd))
-            return PopUps.info(model,"妈妈不能为空!");
-        if(CommonUtils.isNullStr(code))
-            return PopUps.info(model,"验证码不能为空！");
+        if (CommonUtils.isNullStr(sid))
+            return PopUps.info(model, "学号不能为空!");
+        if (CommonUtils.isNullStr(pwd))
+            return PopUps.info(model, "妈妈不能为空!");
+        if (CommonUtils.isNullStr(code))
+            return PopUps.info(model, "验证码不能为空！");
         try {
             CourseVo load = service.load(sid, pwd, code, xn, xq);
             model.addAttribute("courseInfo", toWeekImage(load));
@@ -223,18 +223,20 @@ public class CourseControl {
     }
 
     @GetMapping("/manage/unload/{year}/{term}")
-    public String notLoad(Model model,@PathVariable String year, @PathVariable String term,String depart){
-        if(!HttpContext.checkLogin())
+    public String notLoad(Model model, @PathVariable String year, @PathVariable String term, String depart) {
+        if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
+        if (CommonUtils.isNullStr(depart))
+            depart = "all";
         try {
             List<User> notCourseUsers = service.getNotCourseUsers(year, term, depart);
-            model.addAttribute("year",year);
-            model.addAttribute("term",term);
-            model.addAttribute("depart",depart);
-            model.addAttribute("content",notCourseUsers);
+            model.addAttribute("year", year);
+            model.addAttribute("term", term);
+            model.addAttribute("depart", depart);
+            model.addAttribute("content", notCourseUsers);
             return "course_notLoad";
-        }catch (Exception e){
-            return ErrorTools.error(model,e,"加载失败！");
+        } catch (Exception e) {
+            return ErrorTools.error(model, e, "加载失败！");
         }
     }
 
