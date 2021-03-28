@@ -69,6 +69,7 @@ public class Courseinfo implements Serializable {
     }
 
     public Courseinfo(Integer id, String sid, String name, String year, String term, String courses, LocalDateTime dateTime) {
+        this();
         this.id = id;
         this.sid = sid;
         this.name = name;
