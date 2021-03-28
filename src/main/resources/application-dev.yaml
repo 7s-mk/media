@@ -1,11 +1,12 @@
 server:
   port: 9230
 
-db-host: 127.0.0.1
-db-port: 3306
-db-base: WTR
-db-username: root
-db-password: root
+db-host: db.wtu.hll520.cn
+db-port: 10105
+db-base: G_qinya
+db-username: guo_qinya
+db-password: guoqinya
+
 
 spring:
   datasource:

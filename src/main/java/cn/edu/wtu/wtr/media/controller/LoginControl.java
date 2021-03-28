@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/login")
 public class LoginControl {
@@ -36,7 +38,12 @@ public class LoginControl {
         model.addAttribute("user", login);
         // 保存登录后的用户
         HttpContext.setUser(login);
-        return "manage"; //跳转manage页面
+        // 设置超时时间
+        HttpServletRequest request = HttpContext.getRequest();
+        if (request != null)
+            request.getSession().setMaxInactiveInterval(24 * 60 * 60);
+        //跳转manage页面
+        return "redirect:/login/manage";
     }
 
     // 退出登录
@@ -48,7 +55,7 @@ public class LoginControl {
 
     @GetMapping("/manage")
     public String manage(Model model) {
-        if (!HttpContext.checkOffice(Office.测试))
+        if (!HttpContext.checkLogin())
             return PopUps.unLogin(model);
         model.addAttribute("user", HttpContext.getUser());
         return "manage";
