@@ -52,13 +52,18 @@
                 <li><a href="/course" target="_view">我的课表</a></li>
                 <li><a href="/course/empty" target="_view">空课表</a></li>
                 <li><a href="/wtr/register" target="_view">系统设置</a></li>
+                <li><a href="/about.html" target="_view">
+                    <span class="glyphicon glyphicon-volume-up"></span>
+                    <span>关于</span></a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
                 <li><a href="/login/my" target="_view">
                     <span class="glyphicon glyphicon-home"></span>
                     <span>  </span>
-                    <span id="userName" th:text="${user.getName()}">姓名</span>
-                </a></li>
+                    <span id="userName" th:text="${user.getName()}">姓名</span></a>
+                </li>
             </ul>
         </div>
     </div>
