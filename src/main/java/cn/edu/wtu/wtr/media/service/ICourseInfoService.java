@@ -1,6 +1,7 @@
 package cn.edu.wtu.wtr.media.service;
 
 import cn.edu.wtu.wtr.media.object.CourseVo;
+import cn.edu.wtu.wtr.media.object.User;
 
 import java.util.List;
 
@@ -74,18 +75,18 @@ public interface ICourseInfoService {
      * @param term 学期
      * @return list
      */
-    List<CourseVo> list(String year, String term,String depart);
+    List<CourseVo> list(String year, String term, String depart);
 
     /**
      * 获取某个学期的区别
      *
-     * @param year 年
-     * @param term 学
+     * @param year   年
+     * @param term   学
      * @param depart 部门
-     * @param name 模糊姓名
+     * @param name   模糊姓名
      * @return list
      */
-    List<CourseVo> list(String year, String term,String depart, String name, Integer size, Integer page);
+    List<CourseVo> list(String year, String term, String depart, String name, Integer size, Integer page);
 
     /**
      * 删除指定课表
@@ -98,6 +99,17 @@ public interface ICourseInfoService {
     /**
      * 获取总数
      */
-    long count(String year, String term, String depart,String name);
+    long count(String year, String term, String depart, String name);
+
+
+    /**
+     * 获取未录入课表的人
+     *
+     * @param year   学年
+     * @param term   学期
+     * @param depart 部门
+     * @return user
+     */
+    List<User> getNotCourseUsers(String year, String term, String depart);
 
 }

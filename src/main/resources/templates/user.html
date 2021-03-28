@@ -75,6 +75,7 @@
                 <p>电话:<span th:text="${row.getPhone()}"></span></p>
             </td>
             <td>
+                <p><a href="#" th:href="'/user/info?id='+${row.getId()}">详情</a></p>
                 <p><a href="#" th:href="'/user/modify?id='+${row.getId()}">修改</a></p>
                 <p><a href="#" th:href="'/user/remove?id='+${row.getId()}">删除</a></p>
             </td>

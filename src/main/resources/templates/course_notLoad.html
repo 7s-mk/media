@@ -21,9 +21,6 @@
         let year = "2021";
         let term = "3";
         let depart = "all";
-        let nowPage = 1;
-        let sumPage = 1;
-        let key = "";
 
         $(function () {
             refData();
@@ -34,18 +31,6 @@
             year = $("#year").val()
             term = $("#term").val()
             depart = $("#department").val()
-            nowPage = parseInt($("#pageNum").html());
-            sumPage = parseInt($("#pages").html());
-            key = $("#nameKey").val();
-        }
-
-        function search() {
-            refData();
-            location.href = "/course/manage/" + year + "/" + term + "?depart="+depart+"&key=" + key;
-        }
-
-        function renew() {
-            location.href = "/course/manage/" + year + "/" + term;
         }
 
         function page(page) {
@@ -58,22 +43,21 @@
                 alert("已经是第一页！")
                 return;
             }
-            location.href = "/course/manage/" + year + "/" + term + "?depart=" + depart + "&key=" + key + "&page=" + page;
+            location.href = "/course/manage/unload/" + year + "/" + term + "?depart=" + depart;
         }
 
         function goto() {
             refData();
-            location.href = "/course/manage/" + year + "/" + term + "?depart=" + depart + "&key=" + key;
+            location.href = "/course/manage/unload/" + year + "/" + term + "?depart=" + depart;
         }
     </script>
 </head>
 <body>
-<h1 class="page-header">课表管理</h1>
+<h1 class="page-header">未录入课表用户查询</h1>
 <span>条件切换</span>
 <label for="year" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="year" name="year">
-        <option value="all" th:value="${year}" th:text="'当前学年：'+${year}">默认all</option>
-        <option value="all">全部学年(all)</option>
+        <option value="2020" th:value="${year}" th:text="'当前学年：'+${year}">默认2020</option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
         <option value="2019">2019</option>
@@ -88,10 +72,9 @@
 </label>
 <label for="term" class="form-inline">
     <select class="bootstrap-select form-control" data-style="btn-info" id="term" name="term">
-        <option value="all" th:value="${term}" th:text="'当前学期：'+${term}">默认全部学期（all)</option>
+        <option value="12" th:value="${term}" th:text="'当前学期：'+${term}">默认下学期</option>
         <option value="3">上学期（3月）</option>
         <option value="12">下学期（12月）</option>
-        <option value="all">全部学期（all)</option>
     </select>
 </label>
 <label for="department" class="form-inline">
@@ -113,57 +96,42 @@
 <button id="switch" class="btn btn-primary" onclick="goto()">
     <span class="glyphicon glyphicon-refresh"></span> 切换
 </button>&nbsp;
-<!-- 搜索 -->
-<span>搜索姓名：</span>
-<label for="nameKey" class="form-inline">
-    <input type="text" id="nameKey" class="form-control" th:value="${key}">&nbsp;&nbsp;
-</label>
-<button id="search" class="btn btn-primary" onclick="search()">
-    <span class="glyphicon glyphicon-search"></span> 搜索
-</button>&nbsp;
-<button id="reset" class="btn btn-danger" onclick="renew()">
-    <span class="glyphicon glyphicon-repeat"></span> 恢复
+<a href="/course/manage">
+<button class="btn btn-success">
+    <span class="glyphicon glyphicon-home"></span> 课表管理
 </button>
-<a href="/course/manage/unload/2020/12">
-    <button class="btn btn-success">
-        <span class="glyphicon glyphicon-bookmark"></span> 未录入查询
-    </button>
 </a>&nbsp;
 <br/>
-共找到<span id="sumRows" style="color: crimson" th:text="${count}"></span>条数据&nbsp;
-本页共<span style="color: crimson" th:text="${content.size()}"></span>条
+共找到<span id="sumRows" style="color: crimson" th:text="${content.size()}"></span>人未录入课表数据&nbsp;
 <br>
 <div class="table-responsive">
     <table id="listCustomer" class="table">
         <thead>
         <tr>
-            <th>学号</th>
+            <th>用户名</th>
             <th>姓名</th>
             <th>部门</th>
-            <th>学年</th>
-            <th>学期</th>
-            <th>节次</th>
+            <th>职务</th>
+            <th>QQ</th>
+            <th>电话</th>
             <th>操作</th>
-            <th>更新时间</th>
         </tr>
         </thead>
         <tbody id="searchVar">
         <!-- 预留数据 -->
         <tr th:each="row:${content}">
-            <td th:text="${row.getSid()}"></td>
+            <td th:text="${row.getUsername()}"></td>
             <td th:text="${row.getName()}"></td>
-            <td th:text="${row.getDepart()}"></td>
-            <td th:text="${row.getYear()}"></td>
-            <td th:text="${row.getTerm()}"></td>
-            <td th:text="'共'+${row.getCourses().size()}+'节'"></td>
+            <td th:text="${row.getDepartment()}"></td>
+            <td th:text="${row.getOffice()}"></td>
+            <td th:text="${row.getQQ()}"></td>
+            <td th:text="${row.getPhone()}"></td>
             <td>
                 <p><a href="#"
-                      th:href="'/course/info/'+${row.getId()}+'?year='+${row.getYear()}+'&term='+${row.getTerm()}">详情</a>
+                      th:href="'/user/info/'+${row.getId()}">详情</a>
                 </p>
-                <p><a href="#" th:href="'/course/manage/delete?id='+${row.getCid()}">删除</a>
                 </p>
             </td>
-            <td th:text="${row.getDateTime()}"></td>
         </tr>
 
         </tbody>
@@ -174,13 +142,5 @@
     </table>
 </div>
 
-<div class="icon-align-center">
-    <a href="#" id="start" onclick="page(1)">首页</a>
-    <button id="upon" onclick="page(nowPage-1)">上一页</button>&nbsp;
-    第<span id="pageNum" style="color: #142fdc" th:text="${page}"></span>页&nbsp;
-    共<span id="pages" th:text="${pageCount}"></span>页&nbsp;
-    <button id="next" onclick="page(nowPage+1)">下一页</button>&nbsp;
-    <a href="#" id="last" onclick="page(sumPage)">末页</a>
-</div>
 </body>
 </html>

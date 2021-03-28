@@ -2,12 +2,11 @@ package cn.edu.wtu.wtr.media.service.impl;
 
 import cn.edu.wtu.wtr.media.common.MessageException;
 import cn.edu.wtu.wtr.media.dao.CourseinfoDao;
-import cn.edu.wtu.wtr.media.object.CourseVo;
-import cn.edu.wtu.wtr.media.object.Courseinfo;
-import cn.edu.wtu.wtr.media.object.CourseinfoExample;
-import cn.edu.wtu.wtr.media.object.User;
+import cn.edu.wtu.wtr.media.dao.UserDao;
+import cn.edu.wtu.wtr.media.object.*;
 import cn.edu.wtu.wtr.media.service.ICourseInfoService;
 import cn.edu.wtu.wtr.media.service.ICourseService;
+import cn.edu.wtu.wtr.media.util.CommonUtils;
 import cn.edu.wtu.wtr.media.util.HttpContext;
 import cn.edu.wtu.wtr.media.util.education.login.JWTools;
 import cn.edu.wtu.wtr.media.util.education.model.Course;
@@ -30,6 +29,8 @@ import java.util.List;
 public class CourseInfoService implements ICourseInfoService {
     @Autowired
     CourseinfoDao dao;
+    @Autowired
+    UserDao userDao;
     @Autowired
     ICourseService service;
 
@@ -121,8 +122,8 @@ public class CourseInfoService implements ICourseInfoService {
      * @return list
      */
     @Override
-    public List<CourseVo> list(String year, String term,String depart) {
-        return CourseVo.build(dao.selectByExample(getExample(year, term,depart, null)));
+    public List<CourseVo> list(String year, String term, String depart) {
+        return CourseVo.build(dao.selectByExample(getExample(year, term, depart, null)));
     }
 
 
@@ -135,8 +136,8 @@ public class CourseInfoService implements ICourseInfoService {
      * @return list
      */
     @Override
-    public List<CourseVo> list(String year, String term, String depart,String name, Integer size, Integer page) {
-        CourseinfoExample example = getExample(year, term,depart, name);
+    public List<CourseVo> list(String year, String term, String depart, String name, Integer size, Integer page) {
+        CourseinfoExample example = getExample(year, term, depart, name);
         size = size == null || size < 10 ? 20 : size;
         page = page == null || page < 1 ? 1 : page;
         example.setLimit(size);
@@ -159,9 +160,43 @@ public class CourseInfoService implements ICourseInfoService {
      * 获取总数
      */
     @Override
-    public long count(String year, String term,String depart, String name) {
-        return dao.countByExample(getExample(year, term,depart, name));
+    public long count(String year, String term, String depart, String name) {
+        return dao.countByExample(getExample(year, term, depart, name));
     }
+
+    /**
+     * 获取未录入课表的人
+     *
+     * @param year   学年
+     * @param term   学期
+     * @param depart 部门
+     * @return user
+     */
+    @Override
+    public List<User> getNotCourseUsers(String year, String term, String depart) {
+        // 获取用户
+        UserExample userExample = new UserExample();
+        if (CommonUtils.noNullStr(depart) && "all".equals(depart))
+            userExample.createCriteria().andDepartmentEqualTo(depart);
+        List<User> users = userDao.selectByExample(userExample);
+        // 获取课表
+        List<Courseinfo> courses = dao.selectByExample(getExample(year, term, depart, null));
+
+        // 对比擦除
+        for (int i = users.size() - 1; i >= 0; i--) {
+            // 隐藏密码
+            users.get(i).setPassword("*******");
+            // 对比移出
+            for (Courseinfo cours : courses) {
+                if (cours.getName().equals(users.get(i).getName())){
+                    users.remove(i);
+                    i--;
+                }
+            }
+        }
+        return users;
+    }
+
 
     /*  封装 */
 
@@ -192,19 +227,19 @@ public class CourseInfoService implements ICourseInfoService {
         CourseinfoExample example = new CourseinfoExample();
         CourseinfoExample.Criteria criteria = example.createCriteria();
         // 非all 就写入年作为条件
-        if (year != null && !"all".equals(year)) {
+        if (CommonUtils.noNullStr(year) && !"all".equals(year)) {
             criteria.andYearEqualTo(year);
         }
         // 非all 就写入
-        if (term != null && !"all".equals(term)) {
+        if (CommonUtils.noNullStr(term) && !"all".equals(term)) {
             criteria.andTermEqualTo(term);
         }
         // 部门
-        if (depart != null && !"all".equals(depart)&&!depart.isEmpty()) {
+        if (CommonUtils.noNullStr(depart) && !"all".equals(depart) && !depart.isEmpty()) {
             criteria.andDepartEqualTo(depart);
         }
         // 如果name 存在就 写入
-        if (name != null && !name.isEmpty()) {
+        if (CommonUtils.noNullStr(name) && !name.isEmpty()) {
             criteria.andNameLike("%" + name + "%");
         }
         return example;
